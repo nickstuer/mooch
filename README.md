@@ -23,6 +23,9 @@ This Python package is a collection of useful Python code that is commonly used 
 ### Config File
 Uses a TOML config file. Easily get/set configuration values. Automatically sets values to defaults if they're not currently saved in the configuration file.
 
+### Location
+Provide a zip code to get city, state and lat, lon.
+
 ### Requires
 Throw an exception if the installed python version isn't new enough.
 Throw an exception if the desired operating system is incorrect.
@@ -64,13 +67,25 @@ config["settings.mood"] = "angry"
 print(config["settings.mood"])
 ```
 
+### Location
+```python
+from mooch import Location
+location = Location(62704).load()
+
+assert location.city == "Springfield"
+assert location.state == "Illinois"
+assert location.state_abbreviation == "IL"
+assert location.latitude == "39.7725"
+assert location.longitude == "-89.6889"
+```
+
 ### Requires
 Throws an Exception if the requirement isn't satisified.
 ```python
-from mooch.require.require import python_version, operating_system
+from mooch import Require
 
-python_version("3.13")
-operating_system("Windows")
+Require.python_version("3.13")
+Require.operating_system("Windows")
 ```
 
 ### Logging Decorator
@@ -78,9 +93,9 @@ For adding 'BEGIN' and 'END' to log files whenever the decorated function runs.
 Also logs the values of the args passed in.
 
 ```python
-from mooch.logging.decorators import log_begin_and_end
+from mooch.logging.decorators import log_entry_exit
 
-@log_begin_and_end
+@log_entry_exit
 def random_function(arg1, arg2){
     print(arg1)
     print(arg2)
