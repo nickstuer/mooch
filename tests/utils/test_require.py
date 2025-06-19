@@ -3,8 +3,8 @@ import types
 
 import pytest
 
-from mooch.require.exceptions import RequirementError
-from mooch.require.require import operating_system, python_version
+from mooch import Require
+from mooch.exceptions import RequirementError
 
 
 def make_version_info(major: int, minor: int, micro: int = 0):
@@ -53,10 +53,10 @@ def test_python_version(monkeypatch, required, actual, should_raise):
     monkeypatch.setattr(sys, "version_info", FakeVersionInfo(*actual))
     if should_raise:
         with pytest.raises(RequirementError) as excinfo:
-            python_version(required)
+            Require.python_version(required)
         assert f"requires Python version {required}" in str(excinfo.value)
     else:
-        python_version(required)
+        Require.python_version(required)
 
 
 @pytest.mark.parametrize(
@@ -74,8 +74,8 @@ def test_windows_os_platform(monkeypatch, required_system, platform_sys, should_
     monkeypatch.setattr("platform.system", lambda: platform_sys)
     if should_raise:
         with pytest.raises(RequirementError) as excinfo:
-            operating_system(required_system)
+            Require.operating_system(required_system)
         assert f"requires '{required_system}'" in str(excinfo.value)
         assert platform_sys in str(excinfo.value)
     else:
-        operating_system(required_system)
+        Require.operating_system(required_system)

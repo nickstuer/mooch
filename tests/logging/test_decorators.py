@@ -2,7 +2,7 @@ import asyncio
 
 import pytest
 
-from mooch.logging.decorators import log_begin_and_end
+from mooch.logging.decorators import log_entry_exit
 
 
 class DummyLogger:
@@ -20,10 +20,10 @@ def patch_logger(monkeypatch):
     return dummy_logger
 
 
-def test_log_begin_and_end_sync(patch_logger):
+def test_log_entry_exit_sync(patch_logger):
     calls = []
 
-    @log_begin_and_end
+    @log_entry_exit
     def foo(a, b, c=None):
         calls.append((a, b, c))
         return a + b
@@ -38,8 +38,8 @@ def test_log_begin_and_end_sync(patch_logger):
     assert logs[2][0].startswith("END: ")
 
 
-def test_log_begin_and_end_sync_kwargs(patch_logger):
-    @log_begin_and_end
+def test_log_entry_exit_sync_kwargs(patch_logger):
+    @log_entry_exit
     def bar(x, y=10):
         return x * y
 
@@ -51,10 +51,10 @@ def test_log_begin_and_end_sync_kwargs(patch_logger):
 
 
 @pytest.mark.asyncio
-async def test_log_begin_and_end_async(patch_logger):
+async def test_log_entry_exit_async(patch_logger):
     calls = []
 
-    @log_begin_and_end
+    @log_entry_exit
     async def baz(a, b):
         calls.append((a, b))
         await asyncio.sleep(0)
@@ -70,8 +70,8 @@ async def test_log_begin_and_end_async(patch_logger):
     assert logs[2][0].startswith("END: ")
 
 
-def test_log_begin_and_end_preserves_signature():
-    @log_begin_and_end
+def test_log_entry_exit_preserves_signature():
+    @log_entry_exit
     def foo(a, b):
         return a + b
 

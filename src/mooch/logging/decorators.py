@@ -5,7 +5,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def log_begin_and_end(func: callable):  # noqa: ANN201
+def log_entry_exit(func: callable):  # noqa: ANN201
     @functools.wraps(func)
     def run_func(*args, **kwargs):  # noqa: ANN002, ANN003, ANN202
         logger.log(msg=f"BEGIN: {func.__qualname__}()", level=5)
