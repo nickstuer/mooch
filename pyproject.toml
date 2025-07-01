@@ -1,6 +1,6 @@
 [project]
 name = "mooch"
-version = "0.0.1"
+version = "0.0.2"
 authors = [
   { name="Nick Stuer", email="nickstuer@duck.com" },
 ]
@@ -9,7 +9,6 @@ readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
     "requests>=2.32.4",
-    "trapdoor>=0.6.0",
 ]
 classifiers = [
     "Programming Language :: Python :: 3",
