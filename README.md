@@ -19,10 +19,6 @@ This Python package is a collection of useful Python code that is commonly used 
 
 ## 📖 Features
 
-
-### Config File
-Uses a TOML config file. Easily get/set configuration values. Automatically sets values to defaults if they're not currently saved in the configuration file.
-
 ### Location
 Provide a zip code to get city, state and lat, lon.
 
@@ -49,23 +45,6 @@ uv add mooch
 Python 3.9 or greater
 
 ## 🎮 Usage
-
-### Config File
-```python
-from mooch import Config
-default_settings = {
-    "settings": {
-        "name": "MyName,
-        "mood": "happy",
-    },
-}
-
-config = Config("settings.toml", default_settings)
-
-print(config["settings.mood"])
-config["settings.mood"] = "angry"
-print(config["settings.mood"])
-```
 
 ### Location
 ```python
