@@ -1,4 +1,4 @@
-from .entry_exit import log_entry_exit
+from .logging import log_entry_exit
 from .retry import retry
 from .silent import silent
 
