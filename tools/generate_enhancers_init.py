@@ -1,6 +1,5 @@
 import ast
 import pathlib
-import subprocess
 
 PACKAGE_DIR = pathlib.Path("src/mooch/enhancers")
 INIT_FILE = PACKAGE_DIR / "__init__.py"
@@ -28,26 +27,20 @@ def generate_init() -> None:
 
         module_name = get_module_name(py_file)
         public_funcs = get_public_functions_from_file(py_file)
+        print(f"Found {len(public_funcs)} public functions in {py_file.name}: {public_funcs}")  # noqa: T201
+        public_funcs.sort()
 
         if public_funcs:
             import_lines.append(f"from .{module_name} import {', '.join(public_funcs)}")
             all_entries.extend(public_funcs)
 
+    import_lines.sort()
+    all_entries = sorted(set(all_entries))
     content = "\n".join(import_lines) + "\n\n__all__ = " + repr(all_entries) + "\n"
+    content = content.replace("'", '"')  # Ensure double quotes for consistency
     INIT_FILE.write_text(content)
     print(f"✅ Generated {INIT_FILE} with {len(all_entries)} functions.")  # noqa: T201
 
 
-def run_ruff() -> None:
-    print("🧹 Running ruff format...")  # noqa: T201
-    subprocess.run(["ruff", "format", str(INIT_FILE)], check=True)  # noqa: S603 S607
-
-    print("🔀 Running ruff check --fix (may return non-zero exit)...")  # noqa: T201
-    subprocess.run(["ruff", "check", "--fix", str(INIT_FILE)], check=False)  # noqa: S603 S607
-
-    print("✅ Ruff finished (even if lint warnings exist).")  # noqa: T201
-
-
 if __name__ == "__main__":
     generate_init()
-    run_ruff()
