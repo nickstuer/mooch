@@ -9,8 +9,8 @@ class DummyLogger:
     def __init__(self):
         self.records = []
 
-    def log(self, msg, level):
-        self.records.append((msg, level))
+    def info(self, msg):
+        self.records.append(msg)
 
 
 @pytest.fixture(autouse=True)
@@ -32,22 +32,8 @@ def test_log_entry_exit_sync(patch_logger):
     assert result == 3
     assert calls == [(1, 2, 3)]
     logs = patch_logger.records
-    assert logs[0][0].startswith("BEGIN: ")
-    assert "foo()" in logs[0][0]
-    assert logs[1][0].startswith("Args: (1, 2, 'c = 3')")
-    assert logs[2][0].startswith("END: ")
-
-
-def test_log_entry_exit_sync_kwargs(patch_logger):
-    @log_entry_exit
-    def bar(x, y=10):
-        return x * y
-
-    result = bar(2, y=5)
-    assert result == 10
-    logs = patch_logger.records
-    assert "Args:" in logs[1][0]
-    assert "y = 5" in logs[1][0]
+    assert logs[0] == "[test_decorators] Entering: foo with args=(1, 2), kwargs={'c': 3}"
+    assert logs[1] == "[test_decorators] Exiting: foo"
 
 
 @pytest.mark.asyncio
@@ -64,15 +50,22 @@ async def test_log_entry_exit_async(patch_logger):
     assert result == 12
     assert calls == [(3, 4)]
     logs = patch_logger.records
-    assert logs[0][0].startswith("BEGIN: ")
-    assert "baz()" in logs[0][0]
-    assert logs[1][0].startswith("Args: (3, 4)")
-    assert logs[2][0].startswith("END: ")
+    assert logs[0].startswith("[test_decorators] Entering: baz with args=(3, 4), kwargs={}")
+    assert logs[1].startswith("[test_decorators] Exiting: baz")
 
 
 def test_log_entry_exit_preserves_signature():
     @log_entry_exit
     def foo(a, b):
+        return a + b
+
+    assert foo.__name__ == "foo"
+    assert foo.__qualname__.endswith("foo")
+
+
+def test_log_entry_exit_preserves_signature_async():
+    @log_entry_exit
+    async def foo(a, b):
         return a + b
 
     assert foo.__name__ == "foo"

@@ -8,17 +8,16 @@ logger = logging.getLogger(__name__)
 def log_entry_exit(func: callable):  # noqa: ANN201
     @functools.wraps(func)
     def run_func(*args, **kwargs):  # noqa: ANN002, ANN003, ANN202
-        logger.log(msg=f"BEGIN: {func.__qualname__}()", level=5)
-        logger.log(msg=f"Args: {args + tuple(f'{key} = {val}' for key, val in kwargs.items())}", level=5)
+        logger.info(f"[{func.__module__}] Entering: {func.__name__} with args={args}, kwargs={kwargs}")
         result = func(*args, **kwargs)
-        logger.log(msg=f"END: {func.__qualname__}()", level=5)
+        logger.info(f"[{func.__module__}] Exiting: {func.__name__}")
         return result
 
+    @functools.wraps(func)
     async def async_run_func(*args, **kwargs):  # noqa: ANN002, ANN003, ANN202
-        logger.log(msg=f"BEGIN: {func.__qualname__}()", level=5)
-        logger.log(msg=f"Args: {args + tuple(f'{key} = {val}' for key, val in kwargs.items())}", level=5)
+        logger.info(f"[{func.__module__}] Entering: {func.__name__} with args={args}, kwargs={kwargs}")
         result = await func(*args, **kwargs)
-        logger.log(msg=f"END: {func.__qualname__}", level=5)
+        logger.info(f"[{func.__module__}] Exiting: {func.__name__}")
         return result
 
     return async_run_func if asyncio.iscoroutinefunction(func) else run_func
