@@ -1,8 +1,7 @@
 import pytest
 import requests
 
-from mooch.exceptions import LocationError
-from mooch.utils.location import Location
+from mooch.utils.location import Location, LocationError
 
 
 def test_zip_to_city_state_success(monkeypatch):

@@ -2,12 +2,20 @@ from __future__ import annotations
 
 import requests
 
-from mooch.exceptions import LocationError
+
+class LocationError(Exception):
+    def __init__(self, *args):  # noqa: ANN002
+        super().__init__(*args)
 
 
 class Location:
     def __init__(self, zip_code: int) -> None:
-        """Initialize the Location class by providing a zip code."""
+        """Initialize a Location instance with the specified zip code.
+
+        Args:
+            zip_code (int): The zip code to associate with this location.
+
+        """
         self.zip_code = zip_code
         self.city = None
         self.state = None
@@ -16,7 +24,7 @@ class Location:
         self.longitude = None
 
     def load(self) -> None:
-        """Load the location data based on the provided zip code."""
+        """Load and populate the location data (city, state, state abbr., lat, long) from the Zippopotam.us API."""
         url = f"https://api.zippopotam.us/us/{self.zip_code}"
         res = requests.get(url, timeout=5)
 

@@ -1,7 +1,10 @@
 import platform
 import sys
 
-from mooch.exceptions import RequirementError
+
+class RequirementError(Exception):
+    def __init__(self, *args):  # noqa: ANN002
+        super().__init__(*args)
 
 
 class Require:

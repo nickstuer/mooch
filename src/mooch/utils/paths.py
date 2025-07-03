@@ -3,7 +3,15 @@ from pathlib import Path
 
 
 def desktop_path() -> Path:
-    """Return the path to ~/Desktop."""
+    """Return the filesystem path to the user's Desktop directory.
+
+    On Windows, uses the Windows Shell API to retrieve the Desktop path.
+    On other platforms, assumes the Desktop is located at '~/Desktop'.
+
+    Returns:
+        Path: The path to the Desktop directory.
+
+    """
     if sys.platform.startswith("win"):
         import ctypes.wintypes  # noqa: PLC0415
 

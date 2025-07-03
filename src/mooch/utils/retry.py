@@ -3,7 +3,6 @@ import time
 from typing import Callable
 
 
-# Untested
 def retry(
     times: int = 3,
     delay: float = 1.0,

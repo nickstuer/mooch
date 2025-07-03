@@ -3,8 +3,7 @@ import types
 
 import pytest
 
-from mooch import Require
-from mooch.exceptions import RequirementError
+from mooch.utils.require import Require, RequirementError
 
 
 def make_version_info(major: int, minor: int, micro: int = 0):
