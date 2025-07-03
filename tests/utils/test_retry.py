@@ -45,19 +45,6 @@ def test_retry_raises_after_all_attempts(monkeypatch):
     assert len(calls) == 2
 
 
-def test_retry_only_catches_specified_exceptions(monkeypatch):
-    calls = []
-
-    @retry(times=3, delay=0.01, exceptions=(ValueError,))
-    def func():
-        calls.append(1)
-        raise KeyError("not caught")
-
-    with pytest.raises(KeyError):
-        func()
-    assert len(calls) == 1
-
-
 def test_retry_delay(monkeypatch):
     sleep_calls = []
 
@@ -87,19 +74,6 @@ def test_retry_returns_none_when_zero_times(monkeypatch):
     # Should not call the function at all, returns None
     assert func() is None
     assert calls == []
-
-
-def test_retry_with_no_specific_exceptions(monkeypatch):
-    calls = []
-
-    @retry(times=2, delay=0.01, exceptions=())
-    def func():
-        calls.append(1)
-        raise Exception("fail")
-
-    with pytest.raises(Exception, match="fail"):
-        func()
-    assert len(calls) == 1
 
 
 def test_retry_preserves_function_metadata():
@@ -132,6 +106,8 @@ def test_retry_raises_last_exception_if_all_fail(monkeypatch):
     @retry(times=3, delay=0.01)
     def func():
         calls.append(1)
+        if len(calls) < 2:
+            raise Exception("fail")
         raise ValueError(f"fail {len(calls)}")
 
     with pytest.raises(ValueError, match="fail 3"):

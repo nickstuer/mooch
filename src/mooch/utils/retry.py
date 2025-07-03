@@ -6,21 +6,18 @@ from typing import Callable
 def retry(
     times: int = 3,
     delay: float = 1.0,
-    exceptions: tuple[type[BaseException], ...] = (Exception,),
 ) -> Callable:
     def decorator(fn: callable) -> callable:
         @functools.wraps(fn)
         def wrapper(*args: object, **kwargs: object) -> object:
-            last_exception: BaseException | None = None
             for i in range(times):
                 try:
                     return fn(*args, **kwargs)
-                except exceptions as e:  # noqa: PERF203
-                    last_exception = e
-                    if i == times - 1:
+                except Exception:
+                    if i + 1 >= times:
                         raise
-                    time.sleep(delay)
-            return last_exception
+                time.sleep(delay)
+            return None  # only reached if times is 0
 
         return wrapper
 
