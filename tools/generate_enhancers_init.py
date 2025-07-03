@@ -1,7 +1,15 @@
+import argparse
 import ast
 import pathlib
 
-PACKAGE_DIR = pathlib.Path("src/mooch/enhancers")
+parser = argparse.ArgumentParser()
+parser.add_argument("--dir", required=True)
+args = parser.parse_args()
+
+
+print(f"Directory: {args.dir}")  # noqa: T201
+
+PACKAGE_DIR = pathlib.Path(args.dir)
 INIT_FILE = PACKAGE_DIR / "__init__.py"
 
 
