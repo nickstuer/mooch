@@ -1,4 +1,4 @@
-from mooch.enhancers import silent
+from mooch.decorators import silent
 
 
 def test_silent_suppresses_exception_and_returns_none():

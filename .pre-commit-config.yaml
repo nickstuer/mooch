@@ -6,5 +6,5 @@ repos:
         entry: python tools/generate_enhancers_init.py
         language: python
         stages: [pre-commit]
-        args: [--dir, "src/mooch/enhancers"]
+        args: [--dir, "src/mooch/decorators"]
         pass_filenames: false

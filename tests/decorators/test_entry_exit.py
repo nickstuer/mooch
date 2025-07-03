@@ -2,7 +2,7 @@ import asyncio
 
 import pytest
 
-from mooch.enhancers.logging import log_entry_exit
+from mooch.decorators.logging import log_entry_exit
 
 
 class DummyLogger:
@@ -16,7 +16,7 @@ class DummyLogger:
 @pytest.fixture(autouse=True)
 def patch_logger(monkeypatch):
     dummy_logger = DummyLogger()
-    monkeypatch.setattr("mooch.enhancers.logging.logger", dummy_logger)
+    monkeypatch.setattr("mooch.decorators.logging.logger", dummy_logger)
     return dummy_logger
 
 

@@ -2,7 +2,7 @@ import time
 
 import pytest
 
-from mooch.enhancers.retry import retry
+from mooch.decorators.retry import retry
 
 
 def test_retry_success_first_try(monkeypatch):

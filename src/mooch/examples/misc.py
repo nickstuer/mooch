@@ -1,6 +1,6 @@
 from typing import NoReturn
 
-from mooch.enhancers import log_entry_exit, silent
+from mooch.decorators import log_entry_exit, silent
 
 
 @log_entry_exit
