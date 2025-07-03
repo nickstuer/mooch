@@ -14,5 +14,5 @@ def desktop_path() -> Path:
         ctypes.windll.shell32.SHGetFolderPathW(None, CSIDL_DESKTOPDIRECTORY, None, SHGFP_TYPE_CURRENT, buf)
         path = Path(buf.value)
     else:
-        path = Path.home()
-    return path / "Desktop"
+        path = Path.home() / "Desktop"
+    return path

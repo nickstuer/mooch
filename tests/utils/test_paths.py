@@ -34,16 +34,16 @@ def test_desktop_path_windows(monkeypatch):
 
         @staticmethod
         def create_unicode_buffer(size):
-            return FakeBuffer("C:\\Users\\TestUser")
+            return FakeBuffer("C:\\Users\\TestUser\\Desktop")
 
         class windll:
             class shell32:
                 @staticmethod
                 def SHGetFolderPathW(a, b, c, d, buf):
-                    buf.value = "C:\\Users\\TestUser"
+                    buf.value = "C:\\Users\\TestUser\\Desktop"
 
     monkeypatch.setitem(sys.modules, "ctypes", FakeCtypes)
     monkeypatch.setitem(sys.modules, "ctypes.wintypes", FakeCtypes.wintypes)
 
     result = desktop_path()
-    assert result == Path("C:\\Users\\TestUser") / "Desktop"
+    assert result == Path("C:\\Users\\TestUser\\Desktop")
