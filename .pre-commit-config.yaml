@@ -1,0 +1,8 @@
+repos:
+  - repo: local
+    hooks:
+      - id: generate-init
+        name: Generate __init__.py and format with ruff
+        entry: python tools/generate_init.py
+        language: python
+        stages: [commit]
