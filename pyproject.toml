@@ -1,6 +1,6 @@
 [project]
 name = "mooch"
-version = "0.0.3"
+version = "0.0.4"
 authors = [
   { name="Nick Stuer", email="nickstuer@duck.com" },
 ]
