@@ -2,10 +2,7 @@ from __future__ import annotations
 
 import requests
 
-
-class LocationError(Exception):
-    def __init__(self, *args):  # noqa: ANN002
-        super().__init__(*args)
+from mooch.location.exceptions import LocationError
 
 
 class Location:

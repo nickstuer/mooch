@@ -1,6 +1,6 @@
 """mooch package initialization."""
 
-from .utils.location import Location
-from .utils.require import Require
+from .location.location import Location
+from .require.require import Require
 
 __all__ = ["Location", "Require"]
