@@ -155,20 +155,26 @@ git clone https://github.com/nickstuer/mooch
 curl -Ls https://astral.sh/uv/install.sh | sh
 ```
 
-3. Create a Virtual Environment
-```bash
-uv venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-```
-
-4. Install Project Dependencies
+3. Install Project Dependencies
 ```bash
 uv sync
+```
+
+4. Activate Virtual Environment
+```bash
+source .venv/bin/activate  # On Windows: .venv/Scripts/activate
 ```
 
 5. Install pre-commit hooks
 ```bash
 pre-commit install
+```
+
+6. Setup Python Interpreter in VS Code (On Windows)
+```
+Press CTRL + Shift + P
+Select `Python: Select Interpreter'
+Choose `.\.venv\Scripts\python.exe`
 ```
 
 ## Contributing

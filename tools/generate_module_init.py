@@ -47,7 +47,7 @@ def generate_init() -> None:
     content = "\n".join(import_lines) + "\n\n__all__ = " + repr(all_entries) + "\n"
     content = content.replace("'", '"')  # Ensure double quotes for consistency
     INIT_FILE.write_text(content)
-    print(f"✅ Generated {INIT_FILE} with {len(all_entries)} functions.")  # noqa: T201
+    print(f"Generated {INIT_FILE} with {len(all_entries)} functions.")  # noqa: T201
 
 
 if __name__ == "__main__":
