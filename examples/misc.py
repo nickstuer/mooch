@@ -8,11 +8,11 @@ logger = logging.getLogger(__name__)
 
 
 @log_entry_exit
-@silent(fallback="fallback_value")
+@silent(fallback="nick")
 @retry(times=2, delay=1)
-def raise_error() -> NoReturn:
-    logger.info("function raises an error but returns 'fallback_value'")
+def get_name() -> NoReturn:
+    logger.info("function raises an error but returns fallback value'")
     raise RuntimeError("fail")
 
 
-print(raise_error())  # Should print "fallback_value"
+print(get_name())  # Should print "nick""
