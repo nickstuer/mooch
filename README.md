@@ -24,10 +24,19 @@ mooch is a lightweight Python utility library designed to streamline common deve
 
 ## ✨ Features
 
-### Location Class
+### Settings
+[`mooch.settings`](https://github.com/nickstuer/mooch.settings) is a seperate Python packaged included in mooch. It is lightweight, TOML-backed configuration/settings utility that that exposes project settings as standard Python dictionaries — allowing you to work with settings in a familiar, Pythonic way.
+
+- TOML-powered: Uses toml under the hood for modern, human-friendly settings files.
+- Dictionary-like interface: Access and manipulate settings with regular dict operations.
+- Nested access: Supports nested structures and dotted key notation.
+- Safe defaults: Easily provide fallback values or defaults when keys are missing from the setting file.
+- Optional always reload: Reloads setting file everytime a key is read. (Enabled by default)
+
+### Location
 Provide a zip code to get city, state and lat, lon.
 
-### Require Class
+### Require
 Raise an exception if the installed python version is not compatible with a script.
 Raise an exception if the desired operating system is not compatible with a script.
 
@@ -63,6 +72,28 @@ Python 3.9 or greater
 ## 💡 Usage
 
 Browse the examples folder for more examples.
+
+### Settings
+
+```python
+from mooch.settings import Settings
+
+defaults = {}
+defaults["settings.mood"] = "happy"
+defaults["settings.volume"] = 50
+
+settings = Settings("mooch", defaults)  # Change 'mooch' to your project's name
+
+print("Current Settings:")
+print(f"Mood: {settings.get('settings.mood')}")
+print(f"Volume: {settings.get('settings.volume')}")
+
+settings["settings.volume"] = 75
+
+print("Updated Settings:")
+print(f"Mood: {settings.get('settings.mood')}")
+print(f"Volume: {settings.get('settings.volume')}")
+```
 
 ### Logging Decorator
 

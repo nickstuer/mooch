@@ -240,9 +240,10 @@ wheels = [
 
 [[package]]
 name = "mooch"
-version = "0.0.4"
+version = "1.0.0"
 source = { editable = "." }
 dependencies = [
+    { name = "mooch-settings" },
     { name = "requests" },
 ]
 
@@ -256,7 +257,10 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "requests", specifier = ">=2.32.4" }]
+requires-dist = [
+    { name = "mooch-settings", specifier = ">=1.2.0" },
+    { name = "requests", specifier = ">=2.32.4" },
+]
 
 [package.metadata.requires-dev]
 dev = [
@@ -265,6 +269,18 @@ dev = [
     { name = "pytest-asyncio", specifier = ">=1.0.0" },
     { name = "pytest-cov", specifier = ">=6.2.1" },
     { name = "ruff", specifier = ">=0.12.2" },
+]
+
+[[package]]
+name = "mooch-settings"
+version = "1.2.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "toml" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/aa/89/0845ec82de7579f48029d98b53640a0f13d1e955007846e95ee3837c3f1a/mooch_settings-1.2.0.tar.gz", hash = "sha256:e1579c6abcc82897356ab6443fbcf9853b2486760f386eb45f16d4f9be62bcbf", size = 23757 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c6/e0/eb72ce1738d9c8b0f40e31353a48cf44af5a2a9f51d0d90036722b77fe16/mooch_settings-1.2.0-py3-none-any.whl", hash = "sha256:38056876e1383b6fdabaaa0d5ae7a506f1f4c426aa494f137c09ef3ef4179074", size = 6206 },
 ]
 
 [[package]]
@@ -464,6 +480,15 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/51/de/8589fa724590faa057e5a6d171e7f2f6cffe3287406ef40e49c682c07d89/ruff-0.12.2-py3-none-win32.whl", hash = "sha256:369ffb69b70cd55b6c3fc453b9492d98aed98062db9fec828cdfd069555f5f1a", size = 10523823 },
     { url = "https://files.pythonhosted.org/packages/94/47/8abf129102ae4c90cba0c2199a1a9b0fa896f6f806238d6f8c14448cc748/ruff-0.12.2-py3-none-win_amd64.whl", hash = "sha256:dca8a3b6d6dc9810ed8f328d406516bf4d660c00caeaef36eb831cf4871b0639", size = 11629831 },
     { url = "https://files.pythonhosted.org/packages/e2/1f/72d2946e3cc7456bb837e88000eb3437e55f80db339c840c04015a11115d/ruff-0.12.2-py3-none-win_arm64.whl", hash = "sha256:48d6c6bfb4761df68bc05ae630e24f506755e702d4fb08f08460be778c7ccb12", size = 10735334 },
+]
+
+[[package]]
+name = "toml"
+version = "0.10.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/be/ba/1f744cdc819428fc6b5084ec34d9b30660f6f9daaf70eead706e3203ec3c/toml-0.10.2.tar.gz", hash = "sha256:b3bda1d108d5dd99f4a20d24d9c348e91c4db7ab1b749200bded2f839ccbe68f", size = 22253 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/44/6f/7120676b6d73228c96e17f1f794d8ab046fc910d781c8d151120c3f1569e/toml-0.10.2-py2.py3-none-any.whl", hash = "sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b", size = 16588 },
 ]
 
 [[package]]

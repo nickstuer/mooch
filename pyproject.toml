@@ -8,6 +8,7 @@ description = "A collection of common python utilities."
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
+    "mooch-settings>=1.2.0",
     "requests>=2.32.4",
 ]
 classifiers = [
