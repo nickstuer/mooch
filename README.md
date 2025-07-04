@@ -29,7 +29,7 @@ mooch is a lightweight Python utility library designed to streamline common deve
 
 - TOML-powered: Uses toml under the hood for modern, human-friendly settings files.
 - Dictionary-like interface: Access and manipulate settings with regular dict operations.
-- Nested access: Supports nested structures and dotted key notation.
+- Nested access: Supports nested keys with dotted key notation.
 - Safe defaults: Easily provide fallback values or defaults when keys are missing from the setting file.
 - Optional always reload: Reloads setting file everytime a key is read. (Enabled by default)
 
@@ -85,14 +85,14 @@ defaults["settings.volume"] = 50
 settings = Settings("mooch", defaults)  # Change 'mooch' to your project's name
 
 print("Current Settings:")
-print(f"Mood: {settings.get('settings.mood')}")
-print(f"Volume: {settings.get('settings.volume')}")
+print(f"Mood: {settings.['settings.mood']}")
+print(f"Volume: {settings['settings.volume']}")
 
 settings["settings.volume"] = 75
 
 print("Updated Settings:")
-print(f"Mood: {settings.get('settings.mood')}")
-print(f"Volume: {settings.get('settings.volume')}")
+print(f"Mood: {settings['settings.mood']}")
+print(f"Volume: {settings['settings.volume']}")
 ```
 
 ### Logging Decorator
