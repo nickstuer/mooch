@@ -142,6 +142,34 @@ from mooch import Require
 Require.python_version("3.13")
 Require.operating_system("Windows")
 ```
+## Development
+Steps for setting up this project in VS Code.
+
+1. Clone the Repository
+```bash
+git clone https://github.com/nickstuer/mooch
+```
+
+2. Install [`uv`](https://github.com/astral-sh/uv) (skip if already installed)
+```bash
+curl -Ls https://astral.sh/uv/install.sh | sh
+```
+
+3. Create a Virtual Environment
+```bash
+uv venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+```
+
+4. Install Project Dependencies
+```bash
+uv sync
+```
+
+5. Install pre-commit hooks
+```bash
+pre-commit install
+```
 
 ## Contributing
 
