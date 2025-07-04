@@ -27,11 +27,11 @@ mooch is a lightweight Python utility library designed to streamline common deve
 ### Settings
 [`mooch.settings`](https://github.com/nickstuer/mooch.settings) is a seperate Python packaged included in mooch. It is lightweight, TOML-backed configuration/settings utility that that exposes project settings as standard Python dictionaries — allowing you to work with settings in a familiar, Pythonic way.
 
-- TOML-powered: Uses toml under the hood for modern, human-friendly settings files.
-- Dictionary-like interface: Access and manipulate settings with regular dict operations.
+- TOML-powered: Uses TOML under the hood for modern, human-friendly settings files.
+- Dictionary-like interface: Access and manipulate settings with regular dictionary operations.
 - Nested access: Supports nested keys with dotted key notation.
-- Safe defaults: Easily provide fallback values or defaults when keys are missing from the setting file.
-- Optional always reload: Reloads setting file everytime a key is read. (Enabled by default)
+- Optional `defaults`: Provide default values for initializing the settings file or for when a key is missing in the settings file.
+- Optional `always_reload`: Reload the setting file everytime a key is read. (Enabled by default)
 
 ### Location
 Provide a zip code to get city, state and lat, lon.
@@ -85,7 +85,7 @@ defaults["settings.volume"] = 50
 settings = Settings("mooch", defaults)  # Change 'mooch' to your project's name
 
 print("Current Settings:")
-print(f"Mood: {settings.['settings.mood']}")
+print(f"Mood: {settings['settings.mood']}")
 print(f"Volume: {settings['settings.volume']}")
 
 settings["settings.volume"] = 75
