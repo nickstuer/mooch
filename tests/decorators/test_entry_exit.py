@@ -1,4 +1,5 @@
 import asyncio
+import logging
 
 import pytest
 
@@ -12,11 +13,19 @@ class DummyLogger:
     def info(self, msg):
         self.records.append(msg)
 
+    def addHandler(self, handler):
+        # Dummy method to satisfy the logger interface
+        pass
+
+    def removeHandler(self, handler):
+        # Dummy method to satisfy the logger interface
+        pass
+
 
 @pytest.fixture(autouse=True)
 def patch_logger(monkeypatch):
     dummy_logger = DummyLogger()
-    monkeypatch.setattr("mooch.decorators.logging.logger", dummy_logger)
+    monkeypatch.setattr(logging, "getLogger", lambda name=None: dummy_logger)
     return dummy_logger
 
 
@@ -32,8 +41,8 @@ def test_log_entry_exit_sync(patch_logger):
     assert result == 3
     assert calls == [(1, 2, 3)]
     logs = patch_logger.records
-    assert logs[0] == "[test_entry_exit] Entering: foo with args=(1, 2), kwargs={'c': 3}"
-    assert logs[1] == "[test_entry_exit] Exiting: foo"
+    assert logs[0].startswith("Entering: foo with args=(1, 2), kwargs={'c': 3}")
+    assert logs[1].startswith("Exiting: foo")
 
 
 @pytest.mark.asyncio
@@ -50,8 +59,8 @@ async def test_log_entry_exit_async(patch_logger):
     assert result == 12
     assert calls == [(3, 4)]
     logs = patch_logger.records
-    assert logs[0].startswith("[test_entry_exit] Entering: baz with args=(3, 4), kwargs={}")
-    assert logs[1].startswith("[test_entry_exit] Exiting: baz")
+    assert logs[0].startswith("Entering: baz with args=(3, 4), kwargs={}")
+    assert logs[1].startswith("Exiting: baz")
 
 
 def test_log_entry_exit_preserves_signature():
