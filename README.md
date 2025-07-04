@@ -77,7 +77,7 @@ For adding 'BEGIN' and 'END' to log files whenever the decorated function runs.
 Also logs the values of the args passed in.
 
 ```python
-from mooch.logging.decorators import log_entry_exit
+from mooch.decorators import log_entry_exit
 
 @log_entry_exit
 def random_function(arg1, arg2){
