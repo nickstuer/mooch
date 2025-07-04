@@ -12,7 +12,7 @@
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 [![license](https://img.shields.io/github/license/nickstuer/mooch.svg)](LICENSE)
 
-mooch is a lightweight Python utility library designed to streamline common development tasks needed for every python module — file handling, path operations, logging decorators, and more — all in one convenient minimum package.
+mooch is a lightweight Python utility library designed to streamline common development tasks needed for every python project — file handling, path operations, logging decorators, and more — all in one convenient minimum package.
 
 ## Table of Contents
 
@@ -33,7 +33,7 @@ Raise an exception if the desired operating system is not compatible with a scri
 
 ### Logging Decorators
 **`@log_entry_exit`**
-  - Logs the entry and exit of the function, including arguments and return values.
+  - Logs the entry and exit of the function, including the arguments.
   - Useful for debugging and tracing.
 
 ### Function Decorators
@@ -57,33 +57,12 @@ or
 uv add mooch
 ```
 
-##  📌 Dependencies
+###  📌 Dependencies
 Python 3.9 or greater
 
 ## 💡 Usage
 
 Browse the examples folder for more examples.
-
-### Location
-```python
-from mooch import Location
-location = Location(62704).load()
-
-assert location.city == "Springfield"
-assert location.state == "Illinois"
-assert location.state_abbreviation == "IL"
-assert location.latitude == "39.7725"
-assert location.longitude == "-89.6889"
-```
-
-### Require
-Raise an Exception if the requirement isn't satisified.
-```python
-from mooch import Require
-
-Require.python_version("3.13")
-Require.operating_system("Windows")
-```
 
 ### Logging Decorator
 
@@ -95,10 +74,42 @@ def random_function(arg1, arg2):
     print(arg1)
     print(arg2)
 ```
-Log File:
+Log File Output:
 ```
 DEBUG:__main__:Entering: random_function with args=('Hello', 'World'), kwargs={}
 DEBUG:__main__:Exiting: random_function
+```
+
+### Retry Decorator
+
+```python
+from mooch.decorators import retry
+
+@retry(3)
+def get_age(name="random_person"):
+    age = ...some other task...
+    return age
+```
+
+### Location
+```python
+from mooch import Location
+location = Location(62704).load()
+
+print(location.city)                # "Springfield"
+print(location.state)               # "Illinois"
+print(location.state_abbreviation)  # "IL"
+print(location.latitude)            # "39.7725"
+print(location.longitude)           # "-89.6889"
+```
+
+### Require
+Raise an Exception if the requirement isn't satisified.
+```python
+from mooch import Require
+
+Require.python_version("3.13")
+Require.operating_system("Windows")
 ```
 
 ## 🏆 Contributing
