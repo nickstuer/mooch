@@ -22,7 +22,7 @@ mooch is a lightweight Python utility library designed to streamline common deve
 - [Contributing](https://github.com/nickstuer/mooch?tab=readme-ov-file#-contributing)
 - [License](https://github.com/nickstuer/mooch?tab=readme-ov-file#-license)
 
-## ✨ Features
+## Features
 
 ### Settings
 [`mooch.settings`](https://github.com/nickstuer/mooch.settings) is a seperate Python packaged included in mooch. It is lightweight, TOML-backed configuration/settings utility that that exposes project settings as standard Python dictionaries — allowing you to work with settings in a familiar, Pythonic way.
@@ -56,7 +56,7 @@ Raise an exception if the desired operating system is not compatible with a scri
   - Set delay time between tries with `delay` argument.
 
 
-## 🛠 Install
+## Install
 
 ```
 pip install mooch
@@ -66,7 +66,7 @@ or
 uv add mooch
 ```
 
-###  📌 Dependencies
+###  Dependencies
 Python 3.9 or greater
 
 ## 💡 Usage
@@ -143,7 +143,7 @@ Require.python_version("3.13")
 Require.operating_system("Windows")
 ```
 
-## 🏆 Contributing
+## Contributing
 
 PRs accepted.
 
