@@ -10,7 +10,7 @@ class DummyLogger:
     def __init__(self):
         self.records = []
 
-    def info(self, msg):
+    def debug(self, msg):
         self.records.append(msg)
 
     def addHandler(self, handler):

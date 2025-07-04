@@ -77,7 +77,7 @@ def test_retry_returns_none_when_zero_times(monkeypatch):
 
 
 def test_retry_preserves_function_metadata():
-    @retry()
+    @retry(1)
     def my_func():
         """Docstring here."""
         return 42
