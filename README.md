@@ -69,7 +69,7 @@ uv add mooch
 ###  Dependencies
 Python 3.9 or greater
 
-## 💡 Usage
+## Usage
 
 Browse the examples folder for more examples.
 
