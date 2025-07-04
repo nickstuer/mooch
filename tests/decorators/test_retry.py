@@ -113,3 +113,60 @@ def test_retry_raises_last_exception_if_all_fail(monkeypatch):
     with pytest.raises(ValueError, match="fail 3"):
         func()
     assert len(calls) == 3
+
+
+def test_retry_raises_value_error_when_fail_on_none_and_none_returned():
+    calls = []
+
+    @retry(times=3, delay=0.01, fail_on_none=True)
+    def func():
+        calls.append(1)
+
+    with pytest.raises(ValueError, match="Function returned None"):
+        func()
+    assert len(calls) == 3
+
+
+def test_retry_fallback_value():
+    calls = []
+
+    @retry(times=3, delay=0.01, fallback="fallback_value")
+    def func():
+        calls.append(1)
+        raise Exception("fail")
+
+    result = func()
+    assert result == "fallback_value"
+    assert len(calls) == 3
+
+
+def test_retry_logs_exceptions_when_log_exceptions_true(caplog):
+    calls = []
+
+    @retry(times=2, delay=0.01, log_exceptions=True)
+    def func():
+        calls.append(1)
+        raise Exception("fail")
+
+    with pytest.raises(Exception, match="fail"):
+        func()
+
+    assert "Retry #1 Exception in func" in caplog.text
+    assert "Retry #2 Exception in func" in caplog.text
+    assert len(calls) == 2
+
+
+def test_retry_does_not_log_exceptions_when_log_exceptions_false(caplog):
+    calls = []
+
+    @retry(times=2, delay=0.01, log_exceptions=False)
+    def func():
+        calls.append(1)
+        raise Exception("fail")
+
+    with pytest.raises(Exception, match="fail"):
+        func()
+
+    assert "Retry #1 Exception in func" not in caplog.text
+    assert "Retry #2 Exception in func" not in caplog.text
+    assert len(calls) == 2
