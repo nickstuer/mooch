@@ -32,7 +32,7 @@ Raise an exception if the installed python version is not compatible with a scri
 Raise an exception if the desired operating system is not compatible with a script.
 
 ### Logging Decorators
-**`@log_entry_exit(func)`**
+**`@log_entry_exit`**
   - Logs the entry and exit of the function, including arguments and return values.
   - Useful for debugging and tracing.
 
