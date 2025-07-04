@@ -1,4 +1,4 @@
-# Python Mooch
+# mooch
 
 ![PyPI](https://img.shields.io/pypi/v/mooch?label=mooch)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/mooch)
@@ -12,7 +12,7 @@
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 [![license](https://img.shields.io/github/license/nickstuer/mooch.svg)](LICENSE)
 
-This Python package is a collection of useful Python code that is commonly used on all types of Python projects.
+mooch is a lightweight Python utility library designed to streamline common development tasks needed for every python module — file handling, path operations, logging decorators, and more — all in one convenient minimum package.
 
 ## Table of Contents
 
@@ -22,23 +22,34 @@ This Python package is a collection of useful Python code that is commonly used 
 - [Contributing](https://github.com/nickstuer/mooch?tab=readme-ov-file#-contributing)
 - [License](https://github.com/nickstuer/mooch?tab=readme-ov-file#-license)
 
-## 📖 Features
+## ✨ Features
 
-### Location
+### Location Class
 Provide a zip code to get city, state and lat, lon.
 
-### Requires
-Throw an exception if the installed python version isn't new enough.
-Throw an exception if the desired operating system is incorrect.
+### Require Class
+Raise an exception if the installed python version is not compatible with a script.
+Raise an exception if the desired operating system is not compatible with a script.
 
-### Logging
-Add automatic logging to methods that are run by using a decorator. Useful for logging function arguments, start of function and end of function.
+### Logging Decorators
+**`@log_entry_exit(func)`**
+  - Logs the entry and exit of the function, including arguments and return values.
+  - Useful for debugging and tracing.
+
+### Function Decorators
+**`@silent(fallback="fallback value")`**
+  - Suppresses exceptions raised within the decorated function.
+  - Returns `fallback` if an exception is caught.
+
+**`@retry(3)`**
+  - Retries the decorated function if an exception is raised.
+  - Returns the last exception on final retry attempt. Optional `fallback` returned instead if desired.
+  - Set delay time between tries with `delay` argument.
 
 
 ## 🛠 Install
 
 ```
-# PyPI
 pip install mooch
 ```
 or
@@ -49,7 +60,9 @@ uv add mooch
 ##  📌 Dependencies
 Python 3.9 or greater
 
-## 🎮 Usage
+## 💡 Usage
+
+Browse the examples folder for more examples.
 
 ### Location
 ```python
@@ -63,8 +76,8 @@ assert location.latitude == "39.7725"
 assert location.longitude == "-89.6889"
 ```
 
-### Requires
-Throws an Exception if the requirement isn't satisified.
+### Require
+Raise an Exception if the requirement isn't satisified.
 ```python
 from mooch import Require
 
@@ -73,17 +86,19 @@ Require.operating_system("Windows")
 ```
 
 ### Logging Decorator
-For adding 'BEGIN' and 'END' to log files whenever the decorated function runs.
-Also logs the values of the args passed in.
 
 ```python
 from mooch.decorators import log_entry_exit
 
 @log_entry_exit
-def random_function(arg1, arg2){
+def random_function(arg1, arg2):
     print(arg1)
     print(arg2)
-}
+```
+Log File:
+```
+DEBUG:__main__:Entering: random_function with args=('Hello', 'World'), kwargs={}
+DEBUG:__main__:Exiting: random_function
 ```
 
 ## 🏆 Contributing
