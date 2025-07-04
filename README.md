@@ -34,10 +34,13 @@ mooch is a lightweight Python utility library designed to streamline common deve
 - Optional `always_reload`: Reload the setting file everytime a key is read. (Enabled by default)
 
 ### Location
-Uses the https://api.zippopotam.us API to retrieve location information from a zip code.
+Uses the https://api.zippopotam.us API to retrieve location information from a zip code or a city and state. U.S. only for now.
 - Input options:
   - `zipcode` (int)
+  - `city` (str)
+  - `state` (star)
 - Retrieves:
+  - ZIP Code
   - City
   - State
   - Latitude & Longitude
