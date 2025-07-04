@@ -2,7 +2,7 @@ repos:
   - repo: local
     hooks:
       - id: generate-init-decorators
-        name: Generate __init__.py and format with ruff
+        name: Generate __init__.py for mooch.decorators
         entry: python tools/generate_module_init.py
         language: python
         stages: [pre-commit]
