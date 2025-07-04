@@ -61,6 +61,10 @@ Raise an exception if the desired operating system is not compatible with a scri
   - Returns the last exception on final retry attempt. Optional `fallback` returned instead if desired.
   - Set delay time between tries with `delay` argument.
 
+**`@deprecated`**
+  - Emits a DeprecationWarning when the function is called.
+  - Accepts a custom reason string to explain the deprecation.
+  - Supports Python 3.9+ (`@deprecated` was added to Python 3.13)
 
 ## Install
 

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import requests
 
+from mooch.decorators import deprecated
 from mooch.location.exceptions import LocationError
 
 
@@ -25,6 +26,7 @@ class Location:
         self.longitude = None
         self._load_from_zip_code()
 
+    @deprecated("location details are now loaded automatically upon init")
     def load(self):
         # To be deprecated. Leave this method for backward compatibility until next major release.
         return self
