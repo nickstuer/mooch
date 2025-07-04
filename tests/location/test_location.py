@@ -31,7 +31,7 @@ def test_zip_to_city_state_success(monkeypatch):
         return MockResponse()
 
     monkeypatch.setattr(requests, "get", mock_get)
-    location = Location(62704).load()
+    location = Location(62704)
     assert location.city == "Springfield"
     assert location.state == "Illinois"
     assert location.state_abbreviation == "IL"
@@ -48,7 +48,7 @@ def test_zip_to_city_state_failure_status(monkeypatch):
 
     monkeypatch.setattr(requests, "get", mock_get)
     with pytest.raises(LocationError) as excinfo:
-        location = Location(99999).load()
+        location = Location(99999)
     assert "Invalid zip code 99999." in str(excinfo.value)
 
 
@@ -58,4 +58,16 @@ def test_zip_to_city_state_request_timeout(monkeypatch):
 
     monkeypatch.setattr(requests, "get", mock_get)
     with pytest.raises(requests.Timeout):
-        location = Location(90210).load()
+        location = Location(90210)
+
+
+def test_zip_code_required():
+    with pytest.raises(LocationError) as excinfo:
+        _ = Location()
+    assert "zip_code must be provided to initialize a Location instance." in str(excinfo.value)
+
+
+def test_location_load_method_deprecated():
+    # This test is to ensure backward compatibility; the load method should not raise an error.
+    location = Location(62704)
+    assert location.load() is location  # Ensure load method returns the instance itself

@@ -34,7 +34,13 @@ mooch is a lightweight Python utility library designed to streamline common deve
 - Optional `always_reload`: Reload the setting file everytime a key is read. (Enabled by default)
 
 ### Location
-Provide a zip code to get city, state and lat, lon.
+Uses the https://api.zippopotam.us API to retrieve location information from a zip code.
+- Input options:
+  - `zipcode` (int)
+- Retrieves:
+  - City
+  - State
+  - Latitude & Longitude
 
 ### Require
 Raise an exception if the installed python version is not compatible with a script.
@@ -125,7 +131,7 @@ def get_age(name="random_person"):
 ### Location
 ```python
 from mooch import Location
-location = Location(62704).load()
+location = Location(zipcode=62704)
 
 print(location.city)                # "Springfield"
 print(location.state)               # "Illinois"
