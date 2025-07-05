@@ -1,3 +1,4 @@
+import asyncio
 import logging
 from functools import wraps
 from typing import Callable
@@ -21,7 +22,7 @@ def silent(fallback: object = None, *, log_exceptions: bool = True) -> object:
 
     def decorator(func: Callable) -> Callable:
         @wraps(func)
-        def wrapper(*args: object, **kwargs: object) -> object:
+        def sync_wrapper(*args: object, **kwargs: object) -> object:
             try:
                 return func(*args, **kwargs)
             except Exception:
@@ -30,6 +31,16 @@ def silent(fallback: object = None, *, log_exceptions: bool = True) -> object:
                     logger.exception(f"Silent Exception in {func.__name__}. Returning fallback value '{fallback}'.")
                 return fallback
 
-        return wrapper
+        @wraps(func)
+        async def async_wrapper(*args: object, **kwargs: object) -> object:
+            try:
+                return await func(*args, **kwargs)
+            except Exception:
+                if log_exceptions:
+                    logger = logging.getLogger(func.__module__)
+                    logger.exception(f"Silent Exception in {func.__name__}. Returning fallback value '{fallback}'.")
+                return fallback
+
+        return async_wrapper if asyncio.iscoroutinefunction(func) else sync_wrapper
 
     return decorator
