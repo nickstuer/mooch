@@ -76,7 +76,7 @@ Uses the https://api.zippopotam.us API to retrieve location information from a z
 
 **`@with_lock(threading.Lock or asyncio.Lock)`**
  - Prevents concurrent execution using provided threading.Lock or asyncio.Lock
- - Lock object is created if not provided, but doing this only prevents concurrent execution of same function
+ - Lock object is created if not provided, but doing this only prevents concurrent execution of same function.
 
 ## Install
 
