@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import requests
 
-from mooch.decorators import deprecated
 from mooch.location.exceptions import LocationError
 from mooch.location.state_abbrev import abbrev_to_state, state_to_abbrev, valid_state, valid_state_abbrev
 
@@ -37,11 +36,6 @@ class Location:
 
         if city is not None:
             self._load_from_city_and_state()
-
-    @deprecated("location details are now loaded automatically upon init")
-    def load(self):
-        # To be deprecated. Leave this method for backward compatibility until next major release.
-        return self
 
     def _load_from_zip_code(self) -> None:
         """Load and populate the location data (city, state, state abbr., lat, long) from the Zippopotam.us API."""

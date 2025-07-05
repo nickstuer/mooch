@@ -67,12 +67,6 @@ def test_zip_code_required():
     assert "provide either" in str(excinfo.value)
 
 
-def test_location_load_method_deprecated():
-    # This test is to ensure backward compatibility; the load method should not raise an error.
-    location = Location(62704)
-    assert location.load() is location  # Ensure load method returns the instance itself
-
-
 def test_location_init_with_city_and_state_success(monkeypatch):
     class MockResponse:
         status_code = 200
