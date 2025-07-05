@@ -188,8 +188,8 @@ Raise an RuntimeError if the requirement isn't satisified.
 from mooch.validators import command, operating_sytem, python_version
 
 python_version.check("3.13")
-operating_system.check(["Windows"])
-command.check(["python", "ls", "echo"])
+operating_system.check("Windows")
+command.check("python", "ls", "echo")
 ```
 
 ## Development

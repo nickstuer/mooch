@@ -26,3 +26,8 @@ def test_windows_os_platform(monkeypatch, required_systems, platform_sys, should
         assert platform_sys in str(excinfo.value)
     else:
         operating_system.check(required_systems)
+
+
+def test_windows_os_platform_with_variadic(monkeypatch):
+    monkeypatch.setattr("platform.system", lambda: "Windows")
+    operating_system.check("Windows", "Linux")

@@ -29,3 +29,9 @@ def test_check_multiple_missing_vars(monkeypatch):
 def test_check_empty_required_vars():
     # Should not raise if no required vars
     env_var.check([])
+
+
+def test_check_variadic_args(monkeypatch):
+    monkeypatch.setenv("VAR1", "value1")
+    monkeypatch.setenv("VAR2", "value2")
+    env_var.check("VAR1", "VAR2")

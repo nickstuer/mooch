@@ -12,3 +12,8 @@ def test_architecture_blocked(monkeypatch):
     monkeypatch.setattr("platform.machine", lambda: "i386")
     with pytest.raises(RuntimeError, match="Allowed architecture"):
         architecture.check(["x86_64", "arm64"])
+
+
+def test_architecture_variadic_args(monkeypatch):
+    monkeypatch.setattr("platform.machine", lambda: "x86_64")
+    architecture.check("x86_64", "arm64")

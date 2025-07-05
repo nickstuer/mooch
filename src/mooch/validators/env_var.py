@@ -1,7 +1,9 @@
+from __future__ import annotations
+
 import os
 
 
-def check(required_vars: list[str]) -> None:
+def check(*required_vars: str | list[str]) -> None:
     """Check if all required environment variables are set.
 
     Args:
@@ -11,7 +13,13 @@ def check(required_vars: list[str]) -> None:
         RuntimeError: If any of the required environment variables are missing.
 
     """
-    missing = [var for var in required_vars if not os.getenv(var)]
+    flatten = []
+    for f in required_vars:
+        if isinstance(f, list):
+            flatten.extend(f)
+        else:
+            flatten.append(f)
+    missing = [var for var in flatten if not os.getenv(var)]
     if missing:
         msg = f"Missing required environment variable(s): {', '.join(missing)}"
         raise RuntimeError(msg)

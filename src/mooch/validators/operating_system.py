@@ -1,7 +1,9 @@
+from __future__ import annotations
+
 import platform
 
 
-def check(allowed: list[str]) -> None:
+def check(*allowed: str | list[str]) -> None:
     """Check if the current operating system is in the list of allowed operating systems.
 
     Args:
@@ -12,7 +14,14 @@ def check(allowed: list[str]) -> None:
 
     """
     current_os = platform.system().lower()
-    allowed = [os.lower() for os in allowed]
+    flatten = []
+    for f in allowed:
+        if isinstance(f, list):
+            flatten.extend(f)
+        else:
+            flatten.append(f)
+
+    allowed = [os.lower() for os in flatten]
     if current_os not in allowed:
         msg = f"Allowed OS: {allowed}. Detected: {current_os}"
         raise RuntimeError(msg)
