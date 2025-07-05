@@ -56,7 +56,7 @@ def retry(
         async def async_wrapper(*args: object, **kwargs: object) -> object:
             for i in range(times):
                 try:
-                    result = func(*args, **kwargs)
+                    result = await func(*args, **kwargs)
                     if result is None and fail_on_none:
                         msg = "Function returned None"
                         raise ValueError(msg)  # noqa: TRY301
