@@ -25,7 +25,7 @@ mooch is a lightweight Python utility library designed to streamline common deve
 ## Features
 
 ### Settings
-[`mooch.settings`](https://github.com/nickstuer/mooch.settings) is a seperate Python packaged included in mooch. It is lightweight, TOML-backed configuration/settings utility that that exposes project settings as standard Python dictionaries — allowing you to work with settings in a familiar, Pythonic way.
+[`mooch-settings`](https://github.com/nickstuer/mooch-settings) is a seperate Python packaged included in mooch. It is lightweight, TOML-backed configuration/settings utility that that exposes project settings as standard Python dictionaries — allowing you to work with settings in a familiar, Pythonic way.
 
 - TOML-powered: Uses TOML under the hood for modern, human-friendly settings files.
 - Dictionary-like interface: Access and manipulate settings with regular dictionary operations.
@@ -230,9 +230,9 @@ Select `Python: Select Interpreter'
 Choose `.\.venv\Scripts\python.exe`
 ```
 
-7. Install mooch.settings as local editable
+7. Install mooch-settings as local editable
 ```
-uv pip install -e ../mooch.settings 
+uv pip install -e ../mooch-settings 
 uv pip install -e .
 ```
 
