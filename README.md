@@ -74,6 +74,10 @@ Uses the https://api.zippopotam.us API to retrieve location information from a z
 **`@timeit`**
   - Logs execution time of a function using the Python `logging` module.
 
+**`@with_lock(threading.Lock or asyncio.Lock)`**
+ - Prevents concurrent execution using provided threading.Lock or asyncio.Lock
+ - Lock object is created if not provided, but doing this only prevents concurrent execution of same function
+
 ## Install
 
 ```
@@ -188,6 +192,9 @@ source .venv/bin/activate  # On Windows: .venv/Scripts/activate
 5. Install pre-commit hooks
 ```bash
 pre-commit install
+
+# Verify
+pre-commit run --all-files
 ```
 
 6. Setup Python Interpreter in VS Code
