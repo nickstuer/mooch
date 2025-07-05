@@ -1,5 +1,8 @@
-"""mooch package initialization."""
+from pkgutil import extend_path
 
-from .location.location import Location
+__path__ = extend_path(__path__, __name__)
 
-__all__ = ["Location"]
+from mooch.location.location import Location
+from mooch.settings.settings import Settings
+
+__all__ = ["Location", "Settings"]

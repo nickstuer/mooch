@@ -194,6 +194,12 @@ Select `Python: Select Interpreter'
 Choose `.\.venv\Scripts\python.exe`
 ```
 
+7. Install mooch.settings as local editable
+```
+uv pip install -e ../mooch.settings 
+uv pip install -e .
+```
+
 ## Contributing
 
 PRs accepted.
