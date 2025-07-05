@@ -173,7 +173,7 @@ def test_retry_does_not_log_exceptions_when_log_exceptions_false(caplog):
     assert len(calls) == 2
 
 
-def test_retry_async_function(monkeypatch):
+async def test_retry_async_function(monkeypatch):
     calls = []
 
     @retry(times=3, delay=0.01)
@@ -187,10 +187,10 @@ def test_retry_async_function(monkeypatch):
         assert len(calls) == 1
 
     monkeypatch.setattr("asyncio.run", lambda coro: coro())
-    run_test()
+    await run_test()
 
 
-def test_retry_async_function_with_failures(monkeypatch):
+async def test_retry_async_function_with_failures(monkeypatch):
     calls = []
 
     @retry(times=3, delay=0.01)
@@ -207,10 +207,10 @@ def test_retry_async_function_with_failures(monkeypatch):
         assert calls == ["fail", "fail", "ok"]
 
     monkeypatch.setattr("asyncio.run", lambda coro: coro())
-    run_test()
+    await run_test()
 
 
-def test_retry_async_function_raises_after_all_attempts(monkeypatch):
+async def test_retry_async_function_raises_after_all_attempts(monkeypatch):
     calls = []
 
     @retry(times=2, delay=0.01)
@@ -224,10 +224,10 @@ def test_retry_async_function_raises_after_all_attempts(monkeypatch):
         assert len(calls) == 2
 
     monkeypatch.setattr("asyncio.run", lambda coro: coro())
-    run_test()
+    await run_test()
 
 
-def test_retry_async_function_with_args_kwargs(monkeypatch):
+async def test_retry_async_function_with_args_kwargs(monkeypatch):
     results = []
 
     @retry(times=2, delay=0.01)
@@ -243,10 +243,10 @@ def test_retry_async_function_with_args_kwargs(monkeypatch):
         assert results == [(2, 2)]
 
     monkeypatch.setattr("asyncio.run", lambda coro: coro())
-    run_test()
+    await run_test()
 
 
-def test_retry_async_function_raises_last_exception_if_all_fail(monkeypatch):
+async def test_retry_async_function_raises_last_exception_if_all_fail(monkeypatch):
     calls = []
 
     @retry(times=3, delay=0.01)
@@ -262,7 +262,7 @@ def test_retry_async_function_raises_last_exception_if_all_fail(monkeypatch):
         assert len(calls) == 3
 
     monkeypatch.setattr("asyncio.run", lambda coro: coro())
-    run_test()
+    await run_test()
 
 
 def test_retry_async_function_raises_value_error_when_fail_on_none_and_none_returned():
