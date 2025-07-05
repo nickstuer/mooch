@@ -1,4 +1,4 @@
-from mooch.location.location import Location
+from mooch import Location
 
 location = Location(zip_code=90210)
 location2 = Location(city="Los Angeles", state="CA")

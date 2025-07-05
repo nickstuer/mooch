@@ -1,4 +1,4 @@
-from mooch.settings import Settings
+from mooch import Settings
 
 defaults = {}
 defaults["settings.mood"] = "happy"
