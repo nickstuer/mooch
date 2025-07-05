@@ -1,3 +1,4 @@
+import asyncio
 import functools
 import logging
 import time
@@ -32,7 +33,7 @@ def retry(
 
     def decorator(func: callable) -> callable:
         @functools.wraps(func)
-        def wrapper(*args: object, **kwargs: object) -> object:
+        def sync_wrapper(*args: object, **kwargs: object) -> object:
             for i in range(times):
                 try:
                     result = func(*args, **kwargs)
@@ -51,6 +52,26 @@ def retry(
                 time.sleep(delay)
             return None  # only reached if times is 0
 
-        return wrapper
+        @functools.wraps(func)
+        async def async_wrapper(*args: object, **kwargs: object) -> object:
+            for i in range(times):
+                try:
+                    result = func(*args, **kwargs)
+                    if result is None and fail_on_none:
+                        msg = "Function returned None"
+                        raise ValueError(msg)  # noqa: TRY301
+                    return result  # noqa: TRY300
+                except Exception:
+                    if log_exceptions:
+                        logger = logging.getLogger(func.__module__)
+                        logger.exception(f"Retry #{i + 1} Exception in {func.__name__}")
+                    if i + 1 >= times:
+                        if fallback is not None:
+                            return fallback
+                        raise
+                await asyncio.sleep(delay)
+            return None
+
+        return async_wrapper if asyncio.iscoroutinefunction(func) else sync_wrapper
 
     return decorator
