@@ -71,6 +71,9 @@ Uses the https://api.zippopotam.us API to retrieve location information from a z
   - Accepts a custom reason string to explain the deprecation.
   - Supports Python 3.9+ (`@deprecated` was added to Python 3.13)
 
+**`@timeit`**
+  - Logs execution time of a function using the Python `logging` module.
+
 ## Install
 
 ```
