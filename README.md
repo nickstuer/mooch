@@ -39,6 +39,7 @@ A lightweight, eye-friendly, and feature-rich terminal progress bar.
  - Clean, minimal visual output
  - Smooth gradient color transition (Red → Gold → Green)
  - ETA and step tracking
+ - Fast render speed of ~100ns per iteration
 
 ### Location
 Uses the https://api.zippopotam.us API to retrieve location information from a zip code or a city and state. U.S. only for now.
