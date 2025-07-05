@@ -58,6 +58,7 @@ class ProgressBar:
         self._current = 0
         self._reset_color = "\033[0m" if self.enable_color else ""
         self._last_line_len = 0
+        self.is_complete = False
 
         self._hide_cursor()
         atexit.register(self._show_cursor)
@@ -70,10 +71,11 @@ class ProgressBar:
         self._stream.flush()
 
     def _show_cursor(self) -> None:
-        if not self.hide_cursor or self._stream.closed:
-            return
-        self._stream.write("\033[?25h")
-        self._stream.flush()
+        return
+        # if not self.hide_cursor or self._stream.closed:
+        #    return
+        # self._stream.write("\033[?25h")
+        # self._stream.flush()
 
     def update(self, step: int = 1) -> None:
         self._current += step
@@ -108,23 +110,35 @@ class ProgressBar:
 
         line = f"\r{self.prefix} [{bar}]{percent}{steps}{eta} {self.suffix}"
 
-        visible_line = line.ljust(self._last_line_len)
-        self._last_line_len = len(line)  # update for next time
-
-        self._stream.write(visible_line)
-        self._stream.flush()
-
-        if self._current >= self.total:
-            self._stream.write("\n")
+        if not self.is_complete:
+            visible_line = line.ljust(self._last_line_len)
+            self._last_line_len = len(line)  # update for next time
+            self._stream.write(visible_line)
             self._stream.flush()
-            self._show_cursor()  # Show cursor on completion
+
+            if self._current >= self.total:
+                self.is_complete = True
+                self._stream.write("\n")
+                self._stream.flush()
+                self._last_line_len = 0
+                # self._show_cursor()  # Show cursor on completion  # noqa: ERA001
+        else:
+            # If complete, overwrite the line with spaces to clear it
+            overrun = ""
+            if self.show_eta:
+                overrun = f" {self._format_time(abs(rate * remaining))}"
+            line = f"\rWarning: Task Extended {steps}{overrun}"
+            visible_line = line.ljust(self._last_line_len)
+            self._last_line_len = len(line)  # update for next time
+            self._stream.write(visible_line)
+            self._stream.flush()
 
     def done(self) -> None:
         self._current = self.total
         self._render()
 
     def _format_time(self, seconds: float) -> str:
-        if seconds < 10:
+        if seconds < 10:  # noqa: PLR2004
             return f"{seconds:.1f}s"
         seconds = round(seconds)
         mins, secs = divmod(seconds, 60)
