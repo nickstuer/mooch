@@ -187,9 +187,9 @@ source .venv/bin/activate  # On Windows: .venv/Scripts/activate
 pre-commit install
 ```
 
-6. Setup Python Interpreter in VS Code (On Windows)
+6. Setup Python Interpreter in VS Code
 ```
-Press CTRL + Shift + P
+Press CMD + Shift + P   # On Windows: CTRL + Shift + P
 Select `Python: Select Interpreter'
 Choose `.\.venv\Scripts\python.exe`
 ```
