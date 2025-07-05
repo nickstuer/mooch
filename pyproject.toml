@@ -1,10 +1,10 @@
 [project]
 name = "mooch"
-version = "1.1.0"
+version = "1.2.0"
 authors = [
   { name="Nick Stuer", email="nickstuer@duck.com" },
 ]
-description = "A collection of common python utilities."
+description = "Lightweight Python utility library designed to streamline common development tasks needed for every python project."
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
