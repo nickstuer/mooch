@@ -33,6 +33,13 @@ mooch is a lightweight Python utility library designed to streamline common deve
 - Optional `defaults`: Provide default values for initializing the settings file or for when a key is missing in the settings file.
 - Optional `always_reload`: Reload the setting file everytime a key is read. (Enabled by default)
 
+### Progress Bar
+A lightweight, eye-friendly, and feature-rich terminal progress bar.
+
+ - Clean, minimal visual output
+ - Smooth gradient color transition (Red → Gold → Green)
+ - ETA and step tracking
+
 ### Location
 Uses the https://api.zippopotam.us API to retrieve location information from a zip code or a city and state. U.S. only for now.
 - Input options:
@@ -116,6 +123,24 @@ print("Updated Settings:")
 print(f"Mood: {settings['settings.mood']}")
 print(f"Volume: {settings['settings.volume']}")
 ```
+
+### Progress Bar ###
+```python
+pb = ProgressBar(
+        total=5,
+        prefix="Progress"
+    )
+
+for _ in range(4):
+    time.sleep(0.1)
+    pb.update()
+```
+
+Terminal Output:
+```
+Progress [████████████████████████████████████████          ]  80% 4/5 ETA 0.1s
+```
+
 
 ### Logging Decorator
 
