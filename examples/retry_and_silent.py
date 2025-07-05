@@ -14,7 +14,7 @@ def get_name() -> NoReturn:
     raise RuntimeError("fail")
 
 
-# print(get_name())  # Should print "Nick""
+print(get_name())  # Should print "Nick"
 
 
 @log_entry_exit
