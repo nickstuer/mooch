@@ -1,3 +1,4 @@
+import asyncio
 import warnings
 from functools import wraps
 
@@ -26,6 +27,15 @@ def deprecated(reason: str = "") -> callable:
             )
             return func(*args, **kwargs)
 
-        return wrapper
+        @wraps(func)
+        async def async_wrapper(*args: object, **kwargs: object) -> object:
+            warnings.warn(
+                f"{func.__name__} is deprecated. {reason}",
+                category=DeprecationWarning,
+                stacklevel=2,
+            )
+            return await func(*args, **kwargs)
+
+        return async_wrapper if asyncio.iscoroutinefunction(func) else wrapper
 
     return decorator
