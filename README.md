@@ -45,9 +45,9 @@ Uses the https://api.zippopotam.us API to retrieve location information from a z
   - State
   - Latitude & Longitude
 
-### Require
-Raise an exception if the installed python version is not compatible with a script.
-Raise an exception if the desired operating system is not compatible with a script.
+### Validators
+ - Raise a RuntimeError if the current python version is not compatible with your project.
+ - Raise a RuntimeError if the current operating system is not compatible with your project.
 
 ### Logging Decorators
 **`@log_entry_exit`**
@@ -147,14 +147,15 @@ print(location.latitude)            # "39.7725"
 print(location.longitude)           # "-89.6889"
 ```
 
-### Require
-Raise an Exception if the requirement isn't satisified.
+### Validators
+Raise an RuntimeError if the requirement isn't satisified.
 ```python
-from mooch import Require
+from mooch.validators import operating_sytem, python_version
 
-Require.python_version("3.13")
-Require.operating_system("Windows")
+python_version.check("3.13")
+operating_system.check(["Windows"])
 ```
+
 ## Development
 Steps for setting up this project in VS Code.
 
