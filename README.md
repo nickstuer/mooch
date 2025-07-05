@@ -48,6 +48,8 @@ Uses the https://api.zippopotam.us API to retrieve location information from a z
 ### Validators
  - Raise a RuntimeError if the current python version is not compatible with your project.
  - Raise a RuntimeError if the current operating system is not compatible with your project.
+ - Raise a RuntimeError if system commands like `git` are not in system's `PATH`
+ - Raise a RuntimeError if a list of environmental variables are not set.
 
 ### Logging Decorators
 **`@log_entry_exit`**
@@ -150,10 +152,11 @@ print(location.longitude)           # "-89.6889"
 ### Validators
 Raise an RuntimeError if the requirement isn't satisified.
 ```python
-from mooch.validators import operating_sytem, python_version
+from mooch.validators import command, operating_sytem, python_version
 
 python_version.check("3.13")
 operating_system.check(["Windows"])
+command.check(["python", "ls", "echo"])
 ```
 
 ## Development
