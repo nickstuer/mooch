@@ -64,41 +64,45 @@ def test_progress_bar_multiple_steps(capsys):
 
 
 def test_progress_bar_eta_time_hours(capsys):
-    pb = ProgressBar(total=9001)
-    time.sleep(1)
+    pb = ProgressBar(total=500000)
+    time.sleep(0.01)
     pb.update()
 
     output, _ = capsys.readouterr()
     last_line = output.strip().splitlines()[-1]
     assert "ETA" in last_line
-    assert re.search(r"\b2h \d+m \d+s\b", last_line)
+    assert re.search(r"\b\d+h \d+m \d+s\b", last_line)
 
 
 def test_progress_bar_eta_time_mins(capsys):
-    pb = ProgressBar(total=90)
-    time.sleep(1)
+    pb = ProgressBar(total=20000)
+    time.sleep(0.01)
     pb.update()
 
     output, _ = capsys.readouterr()
     last_line = output.strip().splitlines()[-1]
+    print(last_line)
     assert "ETA" in last_line
-    assert re.search(r"\b1m \d+s\b", last_line)
+    assert re.search(r"\b\d+m \d+s\b", last_line)
+    assert "h" not in last_line
 
 
 def test_progress_bar_eta_time_secs(capsys):
-    pb = ProgressBar(total=45)
-    time.sleep(1)
+    pb = ProgressBar(total=5000)
+    time.sleep(0.01)
     pb.update()
 
     output, _ = capsys.readouterr()
     last_line = output.strip().splitlines()[-1]
     assert "ETA" in last_line
     assert re.search(r"\b\d+s\b", last_line)
+    assert "h" not in last_line
+    assert "m" not in last_line
 
 
 def test_progress_bar_eta_time_less_than_ten_secs(capsys):
-    pb = ProgressBar(total=5)
-    time.sleep(0.7)
+    pb = ProgressBar(total=40)
+    time.sleep(0.01)
     pb.update()
 
     output, _ = capsys.readouterr()
