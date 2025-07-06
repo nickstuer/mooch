@@ -5,7 +5,7 @@ from mooch.progress_bar.progress_bar import ProgressBar
 
 
 def test_progress_bar_basic_update_and_done(capsys):
-    pb = ProgressBar(total=5, width=10, enable_color=False, hide_cursor=False)
+    pb = ProgressBar(total=5, width=10)
     for _ in range(5):
         pb.update()
 
@@ -16,7 +16,7 @@ def test_progress_bar_basic_update_and_done(capsys):
 
 
 def test_progress_bar_basic_update_partial(capsys):
-    pb = ProgressBar(total=5, width=10, enable_color=False, hide_cursor=False)
+    pb = ProgressBar(total=5, width=10)
     for _ in range(4):
         pb.update()
 
@@ -27,9 +27,9 @@ def test_progress_bar_basic_update_partial(capsys):
 
 
 def test_progress_bar_prefix_suffix(capsys):
-    pb = ProgressBar(total=3, prefix="Start", suffix="End", enable_color=False, hide_cursor=False)
+    pb = ProgressBar(total=3, prefix="Start", suffix="End")
     pb.update()
-    pb.done()
+    pb.finish()
     output, _ = capsys.readouterr()
     last_line = output.strip().splitlines()[-1]
     assert "Start" in last_line
@@ -37,31 +37,15 @@ def test_progress_bar_prefix_suffix(capsys):
 
 
 def test_progress_bar_eta_true(capsys):
-    pb = ProgressBar(total=2, show_eta=True, enable_color=False, hide_cursor=False)
+    pb = ProgressBar(total=2)
     pb.update()
     output, _ = capsys.readouterr()
     last_line = output.strip().splitlines()[-1]
     assert "ETA" in last_line
 
 
-def test_progress_bar_eta_false(capsys):
-    pb = ProgressBar(total=2, show_eta=False, enable_color=False, hide_cursor=False)
-    pb.update()
-    output, _ = capsys.readouterr()
-    last_line = output.strip().splitlines()[-1]
-    assert "ETA" not in last_line
-
-
-def test_progress_bar_color_true(capsys):
-    pb = ProgressBar(total=10, enable_color=True, hide_cursor=False)
-    for _ in range(10):
-        pb.update()
-    output, _ = capsys.readouterr()
-    assert "\033[38;2;" in output or "\033[0m" in output
-
-
 def test_progress_bar_color_false(capsys):
-    pb = ProgressBar(total=10, enable_color=False, hide_cursor=False)
+    pb = ProgressBar(total=10)
     for _ in range(10):
         pb.update()
     output, _ = capsys.readouterr()
@@ -70,7 +54,7 @@ def test_progress_bar_color_false(capsys):
 
 
 def test_progress_bar_multiple_steps(capsys):
-    pb = ProgressBar(total=10, width=10, enable_color=False, hide_cursor=False)
+    pb = ProgressBar(total=10, width=10)
     pb.update(3)
     pb.update(2)
     pb.update(5)
@@ -80,7 +64,7 @@ def test_progress_bar_multiple_steps(capsys):
 
 
 def test_progress_bar_eta_time_hours(capsys):
-    pb = ProgressBar(total=9001, show_eta=True, enable_color=False, hide_cursor=False)
+    pb = ProgressBar(total=9001)
     time.sleep(1)
     pb.update()
 
@@ -91,7 +75,7 @@ def test_progress_bar_eta_time_hours(capsys):
 
 
 def test_progress_bar_eta_time_mins(capsys):
-    pb = ProgressBar(total=90, show_eta=True, enable_color=False, hide_cursor=False)
+    pb = ProgressBar(total=90)
     time.sleep(1)
     pb.update()
 
@@ -102,7 +86,7 @@ def test_progress_bar_eta_time_mins(capsys):
 
 
 def test_progress_bar_eta_time_secs(capsys):
-    pb = ProgressBar(total=45, show_eta=True, enable_color=False, hide_cursor=False)
+    pb = ProgressBar(total=45)
     time.sleep(1)
     pb.update()
 
@@ -113,7 +97,7 @@ def test_progress_bar_eta_time_secs(capsys):
 
 
 def test_progress_bar_eta_time_less_than_ten_secs(capsys):
-    pb = ProgressBar(total=5, show_eta=True, enable_color=False, hide_cursor=False)
+    pb = ProgressBar(total=5)
     time.sleep(0.7)
     pb.update()
 

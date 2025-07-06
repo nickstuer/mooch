@@ -1,15 +1,12 @@
 import time
 
-from mooch import ProgressBar
+from mooch import ColoredProgressBar
 
 if __name__ == "__main__":
-    pb = ProgressBar(
-        total=55,
-        prefix="Progress",
+    pb = ColoredProgressBar(
+        total=5,
     )
 
-    for _ in range(666):
-        time.sleep(0.1)
+    for _ in range(5):
+        time.sleep(1.5)
         pb.update()
-
-time.sleep(5)

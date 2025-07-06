@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import atexit
 import sys
 import time
 
@@ -13,18 +12,19 @@ class ProgressBar:
         width (int, optional): The width of the progress bar in characters. Default is 50.
         prefix (str, optional): String to display before the progress bar. Default is "".
         suffix (str, optional): String to display after the progress bar. Default is "".
-        show_percent (bool, optional): Whether to display the percentage completed. Default is True.
-        show_steps (bool, optional): Whether to display the current step and total steps. Default is True.
-        show_eta (bool, optional): Whether to display the estimated time remaining. Default is True.
-        enable_color (bool, optional): Whether to enable color gradient in the progress bar. Default is True.
-        hide_cursor (bool, optional): Whether to hide the cursor while the progress bar is active. Default is True.
+        symbol (str, optional): Character used to fill the progress bar. Default is "█".
+        empty_symbol (str, optional): Character used for the empty part of the progress bar. Default is " ".
+        start_immediately (bool, optional): If True, start rendering immediately. Default is True.
 
     Methods:
+        start() -> None:
+            Start rendering the progress bar.
+
         update(step: int = 1) -> None:
             Increment the progress bar by the given number of steps and render the update.
 
-        done() -> None:
-            Mark the progress as complete and render the final state.
+        finish() -> None:
+            Render the final state of the progress bar.
 
     """
 
@@ -33,111 +33,94 @@ class ProgressBar:
         total: int,
         *,
         width: int = 50,
-        prefix: str = "",
+        prefix: str = "Progress",
         suffix: str = "",
-        show_percent: bool = True,
-        show_steps: bool = True,
-        show_eta: bool = True,
-        enable_color: bool = True,
-        hide_cursor: bool = True,
+        symbol: str = "█",
+        empty_symbol: str = " ",
+        start_immediately: bool = True,
     ):
-        self.total = total
-        self.width = width
+        self.total: int = total
+        self.width: int = width
         self.prefix: str = prefix
         self.suffix: str = suffix
-        self.show_percent: bool = show_percent
-        self.show_steps: bool = show_steps
-        self.show_eta: bool = show_eta
-        self.enable_color: bool = enable_color
+        self.symbol: str = symbol
+        self.empty_symbol: str = empty_symbol
 
         self._stream = sys.stdout
-        self.hide_cursor = hide_cursor
-        self._symbol: str = "█"
-        self._empty_symbol: str = " "
-        self._start_time = time.time()
+
         self._current = 0
-        self._reset_color = "\033[0m" if self.enable_color else ""
         self._last_line_len = 0
-        self.is_complete = False
+        self.is_started = False
+        self.is_finished = False
 
-        self._hide_cursor()
-        atexit.register(self._show_cursor)
-
-    def _hide_cursor(self) -> None:
-        if not self.hide_cursor or self._stream.closed:
-            return
-
-        self._stream.write("\033[?25l")
-        self._stream.flush()
-
-    def _show_cursor(self) -> None:
-        return
-        # if not self.hide_cursor or self._stream.closed:
-        #    return
-        # self._stream.write("\033[?25h")
-        # self._stream.flush()
+        if start_immediately:
+            self._start()
 
     def update(self, step: int = 1) -> None:
         self._current += step
         self._render()
 
-    def _render(self) -> None:
-        now = time.time()
-        elapsed = now - self._start_time
-        progress = min(self._current / self.total, 1.0)
-        filled = int(self.width * progress)
-        empty = self.width - filled
-
-        if self.enable_color:
-            bar_blocks = []
-            for i in range(filled):
-                progress_pos = i / self.width
-                color = self._get_color(progress_pos)
-                bar_blocks.append(f"{color}{self._symbol}")
-            bar = "".join(bar_blocks) + self._reset_color + self._empty_symbol * empty
-        else:
-            bar = self._symbol * filled + self._empty_symbol * empty
-
-        percent = f" {int(progress * 100):3d}%" if self.show_percent else ""
-        steps = f" {str(self._current).rjust(len(str(self.total)))}/{self.total}" if self.show_steps else ""
-
-        eta = ""
-        if self.show_eta and self._current > 0:
-            rate = elapsed / self._current
-            remaining = self.total - self._current
-            eta_seconds = float(rate * remaining)
-            eta = f" ETA {self._format_time(eta_seconds)}"
-
-        line = f"\r{self.prefix} [{bar}]{percent}{steps}{eta} {self.suffix}"
-
-        if not self.is_complete:
-            visible_line = line.ljust(self._last_line_len)
-            self._last_line_len = len(line)  # update for next time
-            self._stream.write(visible_line)
-            self._stream.flush()
-
-            if self._current >= self.total:
-                self.is_complete = True
-                self._stream.write("\n")
-                self._stream.flush()
-                self._last_line_len = 0
-                # self._show_cursor()  # Show cursor on completion  # noqa: ERA001
-        else:
-            # If complete, overwrite the line with spaces to clear it
-            overrun = ""
-            if self.show_eta:
-                overrun = f" {self._format_time(abs(rate * remaining))}"
-            line = f"\rWarning: Task Extended {steps}{overrun}"
-            visible_line = line.ljust(self._last_line_len)
-            self._last_line_len = len(line)  # update for next time
-            self._stream.write(visible_line)
-            self._stream.flush()
-
-    def done(self) -> None:
+    def finish(self) -> None:
         self._current = self.total
         self._render()
 
-    def _format_time(self, seconds: float) -> str:
+    def _start(self) -> None:
+        if self.is_started or self.is_finished:
+            msg = "Progress bar has already been started or finished."
+            raise RuntimeError(msg)
+
+        self._start_time = time.time()
+        self.is_started = True
+        self._stream.write("\033[?25l")  # Hide cursor
+        self._stream.flush()
+        self._render()
+
+    def _finish(self) -> None:
+        self.is_finished = True
+        self._last_line_len = 0
+        self._stream.write("\n")
+        self._stream.flush()
+
+    def get_progress(self) -> float:
+        now = time.time()
+        elapsed_time = now - self._start_time
+        progress_float = min(self._current / self.total, 1.0)
+
+        return (elapsed_time, progress_float)
+
+    def _render_bar(self, progress_float: float) -> str:
+        filled_length = int(self.width * progress_float)
+        empty_length = self.width - filled_length
+        return self.symbol * filled_length + self.empty_symbol * empty_length
+
+    def _render(self) -> None:
+        if self.is_finished:
+            msg = "Progress bar is already 100% complete."
+            raise RuntimeError(msg)
+
+        elapsed_time, progress_float = self.get_progress()
+
+        bar = self._render_bar(progress_float)
+        percent = f"{int(progress_float * 100):3d}%"
+        steps = f"{str(self._current).rjust(len(str(self.total)))}/{self.total}"
+
+        eta = "ETA N/A"
+        if self._current > 0:
+            rate = elapsed_time / self._current
+            remaining = self.total - self._current
+            eta_seconds = float(rate * remaining)
+            eta = f"ETA {self.format_time(eta_seconds)}"
+
+        line = f"\r{self.prefix} [{bar}] {percent} {steps} | {eta} {self.suffix}"
+        line = line.ljust(self._last_line_len)
+        self._last_line_len = len(line)
+        self._stream.write(line)
+        self._stream.flush()
+
+        if self._current >= self.total:
+            self._finish()
+
+    def format_time(self, seconds: float) -> str:
         if seconds < 10:  # noqa: PLR2004
             return f"{seconds:.1f}s"
         seconds = round(seconds)
@@ -149,25 +132,3 @@ class ProgressBar:
         if mins:
             return f"{mins}m {secs}s"
         return f"{secs}s"
-
-    def _get_color(self, progress: float) -> str:
-        """Gradient: soft red → warm gold → deep green (19,154,21)."""
-        if progress < 0.4:  # noqa: PLR2004
-            t = progress / 0.4
-            r = round(230 + (240 - 230) * t)
-            g = round(90 + (200 - 90) * t)
-            b = round(90 + (100 - 90) * t)
-
-        elif progress < 0.65:  # noqa: PLR2004
-            t = (progress - 0.4) / 0.25
-            r = round(240 + (120 - 240) * t)
-            g = round(200 + (180 - 200) * t)
-            b = round(100 + (80 - 100) * t)
-
-        else:
-            t = (progress - 0.65) / 0.35
-            r = round(120 + (19 - 120) * t)
-            g = round(180 + (154 - 180) * t)
-            b = round(80 + (21 - 80) * t)
-
-        return f"\033[38;2;{r};{g};{b}m"
