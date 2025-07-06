@@ -15,6 +15,7 @@ class ProgressBar:
         prefix (str, optional): String to display before the progress bar. Default is "".
         suffix (str, optional): String to display after the progress bar. Default is "".
         symbol (str, optional): Character used to fill the progress bar. Default is "█".
+        auto_start (bool, optional): If True, the progress bar starts immediately upon instantiation. Default is True.
 
     Methods:
         update(step: int = 1) -> None:
@@ -25,7 +26,7 @@ class ProgressBar:
 
     """
 
-    def __init__(
+    def __init__(  # noqa: PLR0913
         self,
         total: int,
         *,
@@ -33,6 +34,7 @@ class ProgressBar:
         prefix: str = "Progress ",
         suffix: str = "",
         symbol: str = "█",
+        auto_start: bool = True,
     ):
         self.total: int = total
         self.width: int = width
@@ -52,7 +54,8 @@ class ProgressBar:
         self.remaining_seconds: float = 0.0
         self.remaining_steps: int = 0
 
-        self.start()
+        if auto_start:
+            self.start()
 
     def start(self) -> None:
         if self._start_time is not None:

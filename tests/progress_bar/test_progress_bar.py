@@ -128,3 +128,10 @@ def test_start_after_started(capsys):
 
     with pytest.raises(RuntimeError, match="Progress bar has already been started."):
         pb.start()
+
+
+def test_update_before_start(capsys):
+    pb = ProgressBar(total=5, auto_start=False)
+
+    with pytest.raises(RuntimeError, match="Progress bar has not been started yet."):
+        pb.update()
