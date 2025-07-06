@@ -136,10 +136,7 @@ for _ in range(5):
 ```
 
 Terminal Output:
-```
-Progress [████████████████████████████████████████          ]  80% 4/5 ETA 0.1s
-```
-
+![ColoredProgressBar Example](screenshots/ColoredProgressBar.png "ColoredProgressBar Example")
 
 ### Logging Decorator
 
