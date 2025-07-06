@@ -38,5 +38,5 @@ def test_check_all_commands_missing(monkeypatch):
     assert "bar" in str(excinfo.value)
 
 
-def test_check_variadic_args(monkeypatch):
-    command.check("python", "ls", "echo")
+def test_check_variadic_args():
+    command.check("python")
