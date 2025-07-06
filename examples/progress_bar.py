@@ -7,6 +7,6 @@ if __name__ == "__main__":
         total=5,
     )
 
-    for _ in range(5):
-        time.sleep(1.5)
+    for _ in range(88):
+        time.sleep(0.5)
         pb.update()
