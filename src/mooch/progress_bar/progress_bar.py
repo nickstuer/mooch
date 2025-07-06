@@ -75,10 +75,7 @@ class ProgressBar:
             return
 
         self.current_step += stepsize
-        self.elapsed_seconds = time.time() - self._start_time
-        self.progress = min(self.current_step / self.total, 1.0)
-        self.remaining_steps = self.total - self.current_step
-        self.remaining_seconds = float(self.elapsed_seconds / self.current_step * self.remaining_steps)
+        self._update_progress()
 
         if self.current_step >= self.total:
             self.finish()
@@ -86,8 +83,15 @@ class ProgressBar:
 
         self._render()
 
+    def _update_progress(self) -> None:
+        self.elapsed_seconds = time.time() - self._start_time
+        self.progress = min(self.current_step / self.total, 1.0)
+        self.remaining_steps = self.total - self.current_step
+        self.remaining_seconds = float(self.elapsed_seconds / self.current_step * self.remaining_steps)
+
     def finish(self) -> None:
         self.current_step = self.total
+        self._update_progress()
         self._render()
         self._finish_time = time.time()
         self._last_line_len = 0
