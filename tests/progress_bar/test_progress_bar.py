@@ -135,3 +135,15 @@ def test_update_before_start(capsys):
 
     with pytest.raises(RuntimeError, match="Progress bar has not been started yet."):
         pb.update()
+
+
+def test_finish_early_shows_complete(capsys):
+    pb = ProgressBar(total=5)
+    pb.update(3)
+    pb.finish()
+
+    output, _ = capsys.readouterr()
+    last_line = output.strip().splitlines()[-1]
+    assert "100%" in last_line
+    assert "5/5" in last_line
+    assert "ETA 0.0s" in last_line
