@@ -65,7 +65,7 @@ def test_progress_bar_multiple_steps(capsys):
 
 def test_progress_bar_eta_time_hours(capsys):
     pb = ProgressBar(total=500000)
-    time.sleep(0.01)
+    pb._start_time = time.time() - 0.01
     pb.update()
 
     output, _ = capsys.readouterr()
@@ -76,7 +76,7 @@ def test_progress_bar_eta_time_hours(capsys):
 
 def test_progress_bar_eta_time_mins(capsys):
     pb = ProgressBar(total=20000)
-    time.sleep(0.01)
+    pb._start_time = time.time() - 0.01
     pb.update()
 
     output, _ = capsys.readouterr()
@@ -89,7 +89,7 @@ def test_progress_bar_eta_time_mins(capsys):
 
 def test_progress_bar_eta_time_secs(capsys):
     pb = ProgressBar(total=5000)
-    time.sleep(0.01)
+    pb._start_time = time.time() - 0.01
     pb.update()
 
     output, _ = capsys.readouterr()
@@ -102,7 +102,7 @@ def test_progress_bar_eta_time_secs(capsys):
 
 def test_progress_bar_eta_time_less_than_ten_secs(capsys):
     pb = ProgressBar(total=40)
-    time.sleep(0.01)
+    pb._start_time = time.time() - 0.01
     pb.update()
 
     output, _ = capsys.readouterr()
