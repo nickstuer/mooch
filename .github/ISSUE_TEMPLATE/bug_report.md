@@ -7,20 +7,22 @@ assignees: ''
 
 ---
 
-**Describe the Bug**
+**Bug Description**
+A clear and concise description of the bug.
+
+**Expected Behavior**
+What you expected to happen.
 
 **Steps To Reproduce**
 1. 
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
-
 **Environment**
  - Package Version: 
-- Python Version: 
+ - Python Version: 
  - OS: 
 
 **Additional Context**
+Any additional information.
 
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
