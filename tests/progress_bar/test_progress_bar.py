@@ -1,6 +1,8 @@
 import re
 import time
 
+import pytest
+
 from mooch.progress_bar.progress_bar import ProgressBar
 
 
@@ -109,3 +111,20 @@ def test_progress_bar_eta_time_less_than_ten_secs(capsys):
     last_line = output.strip().splitlines()[-1]
     assert "ETA" in last_line
     assert re.search(r"\b\d+\.\d{1}s\b", last_line)
+
+
+def test_progress_bar_overrun(capsys):
+    pb = ProgressBar(total=5, width=10)
+    pb.update(5)
+    pb.update(1)
+    output, _ = capsys.readouterr()
+    last_line = output.strip().splitlines()[-1]
+    assert "Warning: Progress bar overrun." in last_line
+    assert "Current Step: 6 of 5." in last_line
+
+
+def test_start_after_started(capsys):
+    pb = ProgressBar(total=5)
+
+    with pytest.raises(RuntimeError, match="Progress bar has already been started."):
+        pb.start()
