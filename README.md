@@ -16,11 +16,11 @@ mooch is a lightweight Python utility library designed to streamline common deve
 
 ## Table of Contents
 
-- [Features](https://github.com/nickstuer/mooch?tab=readme-ov-file#-features)
-- [Install](https://github.com/nickstuer/mooch?tab=readme-ov-file#-install)
-- [Usage](https://github.com/nickstuer/mooch?tab=readme-ov-file#-usage)
-- [Contributing](https://github.com/nickstuer/mooch?tab=readme-ov-file#-contributing)
-- [License](https://github.com/nickstuer/mooch?tab=readme-ov-file#-license)
+- [Features](https://github.com/nickstuer/mooch?tab=readme-ov-file#features)
+- [Install](https://github.com/nickstuer/mooch?tab=readme-ov-file#install)
+- [Usage](https://github.com/nickstuer/mooch?tab=readme-ov-file#usage)
+- [Contributing](https://github.com/nickstuer/mooch?tab=readme-ov-file#contributing)
+- [License](https://github.com/nickstuer/mooch?tab=readme-ov-file#license)
 
 ## Features
 
@@ -116,13 +116,13 @@ settings = Settings("mooch", defaults)  # Change 'mooch' to your project's name
 
 print("Current Settings:")
 print(f"Mood: {settings['settings.mood']}")
-print(f"Volume: {settings['settings.volume']}")
+print(f"Volume: {settings['settings.volume']}") # prints 50
 
 settings["settings.volume"] = 75
 
 print("Updated Settings:")
 print(f"Mood: {settings['settings.mood']}")
-print(f"Volume: {settings['settings.volume']}")
+print(f"Volume: {settings['settings.volume']}") # prints 75
 ```
 
 ### Progress Bar ###
@@ -207,7 +207,7 @@ uv sync
 
 4. Activate Virtual Environment
 ```bash
-source .venv/bin/activate  # On Windows: .venv/Scripts/activate
+source .venv/bin/activate  # On Windows: source .venv/Scripts/activate
 ```
 
 5. Install pre-commit hooks
@@ -246,6 +246,6 @@ Please use the [issue tracker](https://github.com/nickstuer/mooch/issues) to rep
   <img src = "https://contrib.rocks/image?repo=nickstuer/mooch"/>
 </a>
 
-## 📃 License
+## License
 
 [MIT © Nick Stuer](LICENSE)
