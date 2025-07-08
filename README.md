@@ -180,7 +180,7 @@ print(location.longitude)           # "-89.6889"
 ### Validators
 Raise an RuntimeError if the requirement isn't satisified.
 ```python
-from mooch.validators import command, operating_sytem, python_version
+from mooch.validators import command, operating_system, python_version
 
 python_version.check("3.13")
 operating_system.check("Windows")
