@@ -150,8 +150,8 @@ def random_function(arg1, arg2):
 ```
 Log File Output:
 ```
-DEBUG:__main__:Entering: random_function with args=('Hello', 'World'), kwargs={}
-DEBUG:__main__:Exiting: random_function
+DEBUG:__main__:Entering random_function() with args=('Hello', 'World'), kwargs={}
+DEBUG:__main__:Exiting random_function()
 ```
 
 ### Retry Decorator
