@@ -39,10 +39,12 @@ asyncio_mode = "auto"
 [tool.ruff]
 line-length = 120
 show-fixes = true
-lint.select = [
-    "ALL", # include all the rules, including new ones
+
+[tool.ruff.lint]
+select = [
+    "ALL",
 ]
-lint.ignore = [
+ignore = [
   "D100",
   "D101",
   "D102",
@@ -57,7 +59,8 @@ lint.ignore = [
   "COM812",
 ]
 
-lint.per-file-ignores = { "tests/*.py" = ["S101", "D103", "PLR2004", "ANN201", "ANN202", "ANN001"] }
+[tool.ruff.lint.per-file-ignores]
+"tests/*.py" = ["S101", "D103", "PLR2004", "ANN201", "ANN202", "ANN001"]
 
 [tool.ruff.format]
 quote-style = "double"
