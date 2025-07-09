@@ -54,14 +54,14 @@ def test_retry_delay(monkeypatch):
 
     monkeypatch.setattr(time, "sleep", fake_sleep)
 
-    @retry(times=3, delay=0.5)
+    @retry(times=3, delay=0.01)
     def func():
         raise Exception("fail")
 
     with pytest.raises(Exception):
         func()
     # Should sleep twice (times-1)
-    assert sleep_calls == [0.5, 0.5]
+    assert sleep_calls == [0.01, 0.01]
 
 
 def test_retry_returns_none_when_zero_times(monkeypatch):

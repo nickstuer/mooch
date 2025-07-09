@@ -19,7 +19,7 @@ def test_sync_lock_with_explicit_lock():
     @with_lock(_lock)
     def another_critical_section(x):
         call_order.append(x)
-        time.sleep(0.05)
+        time.sleep(0.01)
         return x + 100
 
     results = []
@@ -52,13 +52,13 @@ def test_sync_lock_with_no_lock_shares_lock_with_same_function_only():
     @with_lock()
     def critical_section(x):
         call_order.append(x)
-        time.sleep(0.25)
+        time.sleep(0.01)
         return x * 5
 
     @with_lock()
     def another_critical_section(x):
         call_order.append(x)
-        time.sleep(0.25)
+        time.sleep(0.01)
         return x + 100
 
     results = []

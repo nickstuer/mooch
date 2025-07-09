@@ -73,7 +73,7 @@ def test_silent_does_not_log_exception_when_log_exceptions_is_false(caplog):
 def test_silent_async_function():
     @silent(fallback="async_fallback")
     async def async_raise_error():
-        await asyncio.sleep(0.1)
+        await asyncio.sleep(0.01)
         raise ValueError("async fail")
 
     async def main():
@@ -86,7 +86,7 @@ def test_silent_async_function():
 def test_silent_async_function_success():
     @silent(fallback="async_fallback")
     async def async_add(a, b):
-        await asyncio.sleep(0.1)
+        await asyncio.sleep(0.01)
         return a + b
 
     async def main():
@@ -99,7 +99,7 @@ def test_silent_async_function_success():
 def test_silent_async_function_with_args():
     @silent(fallback="async_fallback")
     async def async_multiply(a, b=1):
-        await asyncio.sleep(0.1)
+        await asyncio.sleep(0.01)
         return a * b
 
     async def main():
@@ -122,7 +122,7 @@ def test_silent_async_function_preserves_metadata():
 def test_silent_async_function_logs_exception_when_log_exceptions_is_true(caplog):
     @silent(log_exceptions=True)
     async def async_raise_error():
-        await asyncio.sleep(0.1)
+        await asyncio.sleep(0.01)
         raise ValueError("async fail")
 
     with caplog.at_level("ERROR"):
@@ -135,7 +135,7 @@ def test_silent_async_function_logs_exception_when_log_exceptions_is_true(caplog
 def test_silent_async_function_does_not_log_exception_when_log_exceptions_is_false(caplog):
     @silent(log_exceptions=False)
     async def async_raise_error():
-        await asyncio.sleep(0.1)
+        await asyncio.sleep(0.01)
         raise ValueError("async fail")
 
     result = asyncio.run(async_raise_error())
