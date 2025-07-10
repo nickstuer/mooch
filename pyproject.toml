@@ -8,9 +8,9 @@ description = "Lightweight Python utility library designed to streamline common 
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
-    "mooch-settings>=2.0.1",
     "packaging>=25.0",
     "requests>=2.32.4",
+    "toml>=0.10.2",
 ]
 # Development Status :: Common values are:
   #   3 - Alpha
