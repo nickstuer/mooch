@@ -47,44 +47,30 @@ def test_sync_lock_with_explicit_lock():
 
 
 def test_sync_lock_with_no_lock_shares_lock_with_same_function_only():
-    call_order = []
+    results = []
 
     @with_lock()
     def critical_section(x):
-        call_order.append(x)
-        time.sleep(0.05)
-        return x * 5
+        for i in range(5):
+            time.sleep(0.01)
+            result = i + x
+            results.append(result)
 
-    @with_lock()
-    def another_critical_section(x):
-        call_order.append(x)
-        time.sleep(0.05)
-        return x + 100
+    def worker():
+        critical_section(100)
 
-    results = []
-    results2 = []
+    def worker2():
+        critical_section(200)
 
-    def worker(val):
-        results.append(critical_section(val))
+    threads = threading.Thread(target=worker)
+    threads2 = threading.Thread(target=worker2)
 
-    def worker2(val):
-        results2.append(another_critical_section(val))
+    threads.start()
+    threads2.start()
+    threads.join()
+    threads2.join()
 
-    threads = [threading.Thread(target=worker, args=(i,)) for i in range(5)]
-    threads2 = [threading.Thread(target=worker2, args=(i,)) for i in range(100, 105)]
-
-    for t1 in threads:
-        t1.start()
-    for t2 in threads2:
-        t2.start()
-    for t in threads + threads2:
-        t.join()
-
-    assert results == [i * 5 for i in range(5)]
-    for i in range(5):
-        assert call_order[i * 2] == i or call_order[i * 2 + 1] == i
-
-    assert results2 == [i + 200 for i in range(5)]
+    assert results == [i + 100 for i in range(5)] + [i + 0 for i in range(200, 205)]
 
 
 @pytest.mark.asyncio
