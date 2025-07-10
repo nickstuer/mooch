@@ -11,7 +11,7 @@ from mooch.settings.utils import get_nested_value, set_nested_value, validate_di
 
 # Constants for metadata
 NOTICE_KEY = "metadata.notice"
-NOTICE = "This file was created by mooch.settings."
+NOTICE = "This file was created by mooch."
 CREATED_KEY = "metadata.created"
 UPDATED_KEY = "metadata.updated"
 
