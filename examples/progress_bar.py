@@ -29,4 +29,5 @@ for _ in range(100):
 pb = ColoredProgressBar(5)
 for _ in range(5):  # Intentionally overrun
     time.sleep(0.1)
+    pb.update()
 pb.update()  # This will trigger the overrun warning

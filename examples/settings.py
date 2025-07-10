@@ -4,7 +4,7 @@ defaults = {}
 defaults["settings.mood"] = "happy"
 defaults["settings.volume"] = 50
 
-settings = Settings("mooch", defaults)  # Change 'mooch' to your project's name
+settings = Settings(".mooch-example/settings.toml", defaults)
 
 print("Current Settings:")
 print(f"Mood: {settings.get('settings.mood')}")
