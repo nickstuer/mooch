@@ -188,7 +188,9 @@ command.check("python", "ls", "echo")
 ```
 
 ## Development
-Steps for setting up this project in VS Code.
+Steps for setting up this project for development in VS Code.
+
+<details><summary><b>Show Instructions</b></summary>
 
 1. Clone the Repository
 ```bash
@@ -207,7 +209,7 @@ uv sync
 
 4. Activate Virtual Environment
 ```bash
-source .venv/bin/activate  # On Windows: source .venv/Scripts/activate
+source .venv/bin/activate  # On Windows: .venv/Scripts/activate
 ```
 
 5. Install pre-commit hooks
@@ -224,12 +226,7 @@ Press CMD + Shift + P   # On Windows: CTRL + Shift + P
 Select `Python: Select Interpreter'
 Choose `.\.venv\Scripts\python.exe`
 ```
-
-7. Install mooch-settings as local editable
-```
-uv pip install -e ../mooch-settings 
-uv pip install -e .
-```
+</details>
 
 ## Contributing
 
