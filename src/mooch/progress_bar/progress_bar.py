@@ -12,7 +12,7 @@ class ProgressBar:
     Args:
         total (int): The total number of steps for completion.
         width (int, optional): The width of the progress bar in characters. Default is 50.
-        prefix (str, optional): String to display before the progress bar. Default is "".
+        prefix (str, optional): String to display before the progress bar. Default is "Progress ".
         suffix (str, optional): String to display after the progress bar. Default is "".
         symbol (str, optional): Character used to fill the progress bar. Default is "█".
         auto_start (bool, optional): If True, the progress bar starts immediately upon instantiation. Default is True.
