@@ -241,12 +241,13 @@ wheels = [
 
 [[package]]
 name = "mooch"
-version = "1.4.1"
+version = "2.0.0"
 source = { editable = "." }
 dependencies = [
     { name = "packaging" },
     { name = "requests" },
     { name = "toml" },
+    { name = "zettings" },
 ]
 
 [package.dev-dependencies]
@@ -263,6 +264,7 @@ requires-dist = [
     { name = "packaging", specifier = ">=25.0" },
     { name = "requests", specifier = ">=2.32.4" },
     { name = "toml", specifier = ">=0.10.2" },
+    { name = "zettings", specifier = ">=1.0.0" },
 ]
 
 [package.metadata.requires-dev]
@@ -551,4 +553,16 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/56/2c/444f465fb2c65f40c3a104fd0c495184c4f2336d65baf398e3c75d72ea94/virtualenv-20.31.2.tar.gz", hash = "sha256:e10c0a9d02835e592521be48b332b6caee6887f332c111aa79a09b9e79efc2af", size = 6076316, upload-time = "2025-05-08T17:58:23.811Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/f3/40/b1c265d4b2b62b58576588510fc4d1fe60a86319c8de99fd8e9fec617d2c/virtualenv-20.31.2-py3-none-any.whl", hash = "sha256:36efd0d9650ee985f0cad72065001e66d49a6f24eb44d98980f630686243cf11", size = 6057982, upload-time = "2025-05-08T17:58:21.15Z" },
+]
+
+[[package]]
+name = "zettings"
+version = "1.0.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "toml" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/c1/57/547ccf4b332410fcd7c5053bb9256069719d2688082e6be25a44caef7ca6/zettings-1.0.0.tar.gz", hash = "sha256:d3cdb11f1bc54bb6f1410dc2b38e5c0c5c8dd1a964367a76e37df6cffce0cc83", size = 34316, upload-time = "2025-07-14T01:38:24.364Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/7e/ea/213c4a92f574aba1b7a362a1acffd24b7f60c706554b354f4495412003dc/zettings-1.0.0-py3-none-any.whl", hash = "sha256:5d52ad36193157c3b187c16b18435d9cb224ae4e9b3857bef074a3a547cd79ac", size = 6483, upload-time = "2025-07-14T01:38:23.167Z" },
 ]

@@ -25,6 +25,8 @@ mooch is a lightweight Python utility library designed to streamline common deve
 ## Features
 
 ### Settings
+ Seperate package named [zettings](https://pypi.org/project/zettings/)
+ 
  Lightweight, TOML-backed configuration/settings utility that that exposes project settings as standard Python dictionaries — allowing you to work with settings in a familiar, Pythonic way.
 
 - TOML-powered: Uses TOML under the hood for modern, human-friendly settings files.
@@ -106,7 +108,7 @@ Browse the examples folder for more examples.
 ### Settings
 
 ```python
-from mooch import Settings
+from zettings import Settings
 
 defaults = {}
 defaults["settings.mood"] = "happy"
