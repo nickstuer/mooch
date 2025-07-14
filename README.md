@@ -1,6 +1,6 @@
 # mooch
 
-![PyPI](https://img.shields.io/pypi/v/mooch?label=mooch)
+[![PyPI](https://img.shields.io/pypi/v/mooch?label=mooch)](https://pypi.org/project/mooch/)
 ![Python Versions](https://img.shields.io/badge/python-3.9+-blue?logo=python)
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/mooch)](https://pypistats.org/packages/mooch)
 [![GitHub issues](https://img.shields.io/github/issues/nickstuer/mooch.svg)](https://github.com/nickstuer/mooch/issues)
@@ -36,6 +36,8 @@ mooch is a lightweight Python utility library designed to streamline common deve
 - Optional `always_reload`: Reload the setting file everytime a key is read. (Enabled by default)
 
 ### Progress Bar
+Seperate package named [BarNone](https://pypi.org/project/barnone/)
+
 A lightweight, eye-friendly, and feature-rich terminal progress bar.
 
  - Clean, minimal visual output
@@ -129,8 +131,9 @@ print(f"Volume: {settings['settings.volume']}") # prints 75
 
 ### Progress Bar ###
 ```python
-#pb = ColoredProgressBar(5)
-pb = ProgressBar(total=5)
+from barnone import ColoredProgressBar
+pb = ColoredProgressBar(5)
+#pb = ProgressBar(total=5)
 
 for _ in range(5):
     time.sleep(0.1)
