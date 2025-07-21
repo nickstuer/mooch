@@ -4,11 +4,11 @@ requires-python = ">=3.9"
 
 [[package]]
 name = "barnone"
-version = "1.0.0"
+version = "1.0.2"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/73/1a/5492f0862a67dc7a471d02aa2d88b03b65ca81b288de96faba6551f0a150/barnone-1.0.0.tar.gz", hash = "sha256:40b4dc68470842fce3e0f5a8198c55b4650de26069386f8ea5891a037b80cbe6", size = 48594, upload-time = "2025-07-14T02:20:53.331Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/9f/4e/fdb4494902a49d37c788ab944bccefbeee07f0e14a82407e11a9e512e634/barnone-1.0.2.tar.gz", hash = "sha256:21c61c416e91c721a0ad7c8d31bbd8d575f860beea8e57774adc165860822fe4", size = 49827, upload-time = "2025-07-19T01:25:47.103Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ba/20/df75b7296144e0f1d9e1ee730f12ee4a75c2781bfb8ed8e62bf4ed9ec5a6/barnone-1.0.0-py3-none-any.whl", hash = "sha256:3d568e087e272debf56323f373898dd61a56f5d42dde8c0ad7557060fbf7a949", size = 5926, upload-time = "2025-07-14T02:20:51.973Z" },
+    { url = "https://files.pythonhosted.org/packages/05/55/9b55db85b2fd1466254400a86087e3ab9f6c895ef3bbdb30b0d5f5c62aac/barnone-1.0.2-py3-none-any.whl", hash = "sha256:72036e758dd69101ad54610b1fbf14f0244618e118ebfaed1b76b68af6cf27a9", size = 6099, upload-time = "2025-07-19T01:25:46.074Z" },
 ]
 
 [[package]]
@@ -250,7 +250,7 @@ wheels = [
 
 [[package]]
 name = "mooch"
-version = "2.1.0"
+version = "2.2.0"
 source = { editable = "." }
 dependencies = [
     { name = "barnone" },
