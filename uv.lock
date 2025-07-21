@@ -250,7 +250,7 @@ wheels = [
 
 [[package]]
 name = "mooch"
-version = "2.1.0"
+version = "2.2.0"
 source = { editable = "." }
 dependencies = [
     { name = "barnone" },
@@ -568,12 +568,12 @@ wheels = [
 
 [[package]]
 name = "zettings"
-version = "1.0.0"
+version = "1.1.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "toml" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/c1/57/547ccf4b332410fcd7c5053bb9256069719d2688082e6be25a44caef7ca6/zettings-1.0.0.tar.gz", hash = "sha256:d3cdb11f1bc54bb6f1410dc2b38e5c0c5c8dd1a964367a76e37df6cffce0cc83", size = 34316, upload-time = "2025-07-14T01:38:24.364Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/da/9c/92aba2eeeee62d5ff216ef424d7f86b77517e637cee7e90445c9fe2149da/zettings-1.1.0.tar.gz", hash = "sha256:0203e6c47469a84c99c9e4f11e478cb58f26f22d067a46f55f9b10e55bae0633", size = 35548, upload-time = "2025-07-21T02:47:21.342Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/7e/ea/213c4a92f574aba1b7a362a1acffd24b7f60c706554b354f4495412003dc/zettings-1.0.0-py3-none-any.whl", hash = "sha256:5d52ad36193157c3b187c16b18435d9cb224ae4e9b3857bef074a3a547cd79ac", size = 6483, upload-time = "2025-07-14T01:38:23.167Z" },
+    { url = "https://files.pythonhosted.org/packages/0a/26/b65b9c8640bede75bdeb4ee9ef1d7ca9be2baa15c829b5928d0870a55d2e/zettings-1.1.0-py3-none-any.whl", hash = "sha256:f9cedba4aab14d6276e71f7c03d2d4d7647f89512e86cbf618f206f9315c0793", size = 6746, upload-time = "2025-07-21T02:47:20.202Z" },
 ]
